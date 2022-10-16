@@ -95,9 +95,9 @@
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:src="@drawable/image_github"
-            android:rotation="16"
+            android:rotation="-16"
             android:alpha="0.30"
-            android:layout_marginBottom="16dp"
+
             app:layout_constraintStart_toStartOf="@id/view_right_align"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
