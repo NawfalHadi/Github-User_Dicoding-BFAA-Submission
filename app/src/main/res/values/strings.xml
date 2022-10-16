@@ -10,6 +10,7 @@
     <string name="user_image_profile">User Image Profile</string>
     <string name="users_location">User\'s Location</string>
     <string name="share_detail_layout">share detail layout</string>
+    <string name="repositories">amount of repositor of user that have</string>
 
     <!-- dummy text -->
     <string name="names">thatnawfal</string>
