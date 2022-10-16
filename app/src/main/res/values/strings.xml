@@ -3,16 +3,25 @@
     <string name="github">GitHub</string>
     <string name="back_to_home">Back to home</string>
 
+    <!-- Content Description -->
+    <string name="github_icon">github background icon transparant</string>
+    <string name="users_company">User\'s Company</string>
+    <string name="back_button">back button</string>
+    <string name="user_image_profile">User Image Profile</string>
+    <string name="users_location">User\'s Location</string>
+    <string name="share_detail_layout">share detail layout</string>
+    <string name="repositories">amount of repositor of user that have</string>
+
+    <!-- dummy text -->
     <string name="names">thatnawfal</string>
     <string name="username">NawfalHadi</string>
-    <string name="repositories">REPOSITORIES</string>
     <string name="_17">17</string>
     <string name="Banjarmasin">Banjarmasin</string>
-    <string name="users_company">User\'s Company</string>
+
+    <!-- activity_detail_user.xml -->
+
     <string name="submission_dicoding_fundamental">Submission Dicoding Fundamental</string>
     <string name="_company">that Company</string>
-    <string name="github_icon">github background icon transparant</string>
-    <string name="users_location">User\'s Location</string>
 
     <!--  Other string resources -->
     <string-array name="username">
