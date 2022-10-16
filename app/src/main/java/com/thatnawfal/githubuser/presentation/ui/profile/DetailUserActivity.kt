@@ -1,5 +1,6 @@
 package com.thatnawfal.githubuser.presentation.ui.profile
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
@@ -24,11 +25,12 @@ class DetailUserActivity : AppCompatActivity() {
         dataUser?.let { bindingView(it) }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun bindingView(dataUser: UserModel) {
         with(binding){
             ivDetailAvatar.load(dataUser.avatar)
             tvDetailNames.text = dataUser.name
-            tvDetailUsername.text = dataUser.username
+            tvDetailUsername.text = "@${dataUser.username}"
 
             with(followsDetailUser){
                 tvFollowers.text = dataUser.follower.toString()

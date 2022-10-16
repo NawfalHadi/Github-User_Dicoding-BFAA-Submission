@@ -1,5 +1,6 @@
 package com.thatnawfal.githubuser.presentation.ui.home.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -35,10 +36,11 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         private val binding: ItemListUserVerticalBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SetTextI18n")
         fun bindingView(item: UserModel) {
             with(binding){
                 itemTvNameVertical.text = item.name
-                itemTvUsernameVertical.text = item.username
+                itemTvUsernameVertical.text = "@${item.username}"
                 itemIvUserVertical.load(item.avatar)
 
                 itemViewgroupVertical.setOnClickListener{
