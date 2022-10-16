@@ -13,6 +13,9 @@
     <string name="_company">that Company</string>
     <string name="github_icon">github background icon transparant</string>
     <string name="users_location">User\'s Location</string>
+    <string name="user_image_profile">User Image Profile</string>
+    <string name="share_detail_layout">share detail layout</string>
+    <string name="back_button">back button</string>
 
     <!--  Other string resources -->
     <string-array name="username">
