@@ -4,27 +4,36 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.thatnawfal.githubuser.data.model.UserModel
-import com.thatnawfal.githubuser.databinding.ActivityDetailUserBinding
+import com.thatnawfal.githubuser.databinding.FragmentDetailUserBinding
 import com.thatnawfal.githubuser.presentation.ui.home.HomeFragment
-import com.thatnawfal.githubuser.presentation.ui.home.MainActivity
 
+class DetailUserFragment : Fragment() {
 
-class DetailUserActivity : AppCompatActivity() {
+    private lateinit var binding: FragmentDetailUserBinding
 
-    private lateinit var binding: ActivityDetailUserBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityDetailUserBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentDetailUserBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
 
-        val dataUser = intent.getParcelableExtra(HomeFragment.EXTRA_KEY) as? UserModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val dataUser = arguments?.getParcelable(HomeFragment.EXTRA_KEY) as? UserModel
+//        val dataUser = activity?.intent?.getParcelableExtra(HomeFragment.EXTRA_KEY) as? UserModel
         dataUser?.let { bindingView(it) }
 
         binding.backButtonDetail.setOnClickListener {
-            finish()
+            findNavController().popBackStack()
         }
 
         binding.detailFbToGithub.setOnClickListener{
@@ -37,7 +46,6 @@ class DetailUserActivity : AppCompatActivity() {
         i.data = Uri.parse("https://github.com/${username}")
         startActivity(i)
     }
-
 
     @SuppressLint("SetTextI18n")
     private fun bindingView(dataUser: UserModel) {
@@ -57,4 +65,5 @@ class DetailUserActivity : AppCompatActivity() {
             }
         }
     }
+
 }
