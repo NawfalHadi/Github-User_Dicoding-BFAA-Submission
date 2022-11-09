@@ -1,16 +1,18 @@
 package com.thatnawfal.githubuser.presentation.ui.home
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.data.model.UserModel
 import com.thatnawfal.githubuser.databinding.FragmentHomeBinding
+import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.UserAdapter
 
 class HomeFragment : Fragment() {
@@ -19,7 +21,9 @@ class HomeFragment : Fragment() {
         const val EXTRA_KEY = "extra_key"
     }
 
+    private val viewModel by viewModels<UserViewModel>()
     private lateinit var binding: FragmentHomeBinding
+
     private val adapter : UserAdapter by lazy {
         UserAdapter()
     }
@@ -35,33 +39,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecyclerView()
-    }
-
-    @SuppressLint("Recycle")
-    private fun addingDataToList() {
-        val dataAvatar = resources.obtainTypedArray(R.array.avatar)
-        val dataName = resources.getStringArray(R.array.name)
-        val dataUsername = resources.getStringArray(R.array.username)
-        val dataRepositoies = resources.getIntArray(R.array.repository)
-        val dataFollowings = resources.getIntArray(R.array.following)
-        val dataFollowers = resources.getIntArray(R.array.followers)
-        val dataLocation = resources.getStringArray(R.array.location)
-        val dataCompany = resources.getStringArray(R.array.company)
-
-        for (i in dataName.indices) {
-            val dataUser = UserModel(
-                dataAvatar.getResourceId(i, -1),
-                dataCompany[i],
-                dataFollowers[i],
-                dataFollowings[i],
-                dataLocation[i],
-                dataName[i],
-                dataRepositoies[i],
-                dataUsername[i]
-            )
-            adapter.addItem(dataUser)
+        viewModel.isLoading.observe(viewLifecycleOwner){
+            binding.pbLoadUsers.isVisible = it
         }
+
+        loadListUsers()
     }
 
     private fun initRecyclerView() {
@@ -70,13 +52,18 @@ class HomeFragment : Fragment() {
             LinearLayoutManager.VERTICAL, false)
         binding.rvUserList.adapter = adapter
 
-        addingDataToList()
+//        adapter.itemClicked(object : UserAdapter.OnItemClickedCallback{
+//            override fun itemClicked(item: UserModel) {
+//                showSelectedItem(item)
+//            }
+//        })
+    }
 
-        adapter.itemClicked(object : UserAdapter.OnItemClickedCallback{
-            override fun itemClicked(item: UserModel) {
-                showSelectedItem(item)
-            }
-        })
+    private fun loadListUsers() {
+        viewModel.listUsers.observe(viewLifecycleOwner){
+            adapter.setItem(it)
+            initRecyclerView()
+        }
     }
 
     private fun showSelectedItem(item: UserModel) {

@@ -6,14 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.thatnawfal.githubuser.data.model.UserModel
+import com.thatnawfal.githubuser.data.model.response.UsersModel
 import com.thatnawfal.githubuser.databinding.ItemListUserVerticalBinding
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
-    private val listData : MutableList<UserModel> = mutableListOf()
+    private var listData : MutableList<UsersModel> = mutableListOf()
     private lateinit var onItemClickedCallback: OnItemClickedCallback
 
-    fun addItem(item: UserModel){
-        this.listData.add(item)
+    fun setItem(list: List<UsersModel>) {
+        listData.addAll(list)
     }
 
     fun itemClicked(onItemClickedCallback: OnItemClickedCallback){
@@ -37,15 +38,16 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bindingView(item: UserModel) {
+        fun bindingView(item: UsersModel) {
             with(binding){
-                itemTvNameVertical.text = item.name
-                itemTvUsernameVertical.text = "@${item.username}"
-                itemIvUserVertical.load(item.avatar)
+                itemTvNameVertical.text = item.login
+                // here change by suggestion from the reviewer before
+                itemTvUsernameVertical.text = "@${item.login}"
+                itemIvUserVertical.load(item.avatarUrl)
 
-                itemViewgroupVertical.setOnClickListener{
-                    onItemClickedCallback.itemClicked(item)
-                }
+//                itemViewgroupVertical.setOnClickListener{
+//                    onItemClickedCallback.itemClicked(item)
+//                }
             }
         }
     }

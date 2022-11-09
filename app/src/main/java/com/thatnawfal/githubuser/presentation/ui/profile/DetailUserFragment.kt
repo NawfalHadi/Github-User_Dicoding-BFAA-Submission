@@ -29,7 +29,6 @@ class DetailUserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val dataUser = arguments?.getParcelable(HomeFragment.EXTRA_KEY) as? UserModel
-//        val dataUser = activity?.intent?.getParcelableExtra(HomeFragment.EXTRA_KEY) as? UserModel
         dataUser?.let { bindingView(it) }
 
         binding.backButtonDetail.setOnClickListener {
