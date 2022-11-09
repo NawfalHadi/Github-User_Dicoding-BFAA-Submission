@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.thatnawfal.githubuser.data.model.UserModel
 import com.thatnawfal.githubuser.data.model.response.UsersModel
 import com.thatnawfal.githubuser.databinding.ItemListUserVerticalBinding
 

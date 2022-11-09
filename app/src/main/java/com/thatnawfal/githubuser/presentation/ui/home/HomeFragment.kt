@@ -7,10 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.thatnawfal.githubuser.R
-import com.thatnawfal.githubuser.data.model.UserModel
 import com.thatnawfal.githubuser.databinding.FragmentHomeBinding
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.UserAdapter
@@ -66,10 +63,10 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showSelectedItem(item: UserModel) {
-        val mBundle = Bundle()
-        mBundle.putParcelable(EXTRA_KEY, item)
-        findNavController().navigate(R.id.action_homeFragment_to_detailUserFragment, mBundle)
-    }
+//    private fun showSelectedItem(item: UsersModel) {
+//        val mBundle = Bundle()
+//        mBundle.putParcelable(EXTRA_KEY, item)
+//        findNavController().navigate(R.id.action_homeFragment_to_detailUserFragment, mBundle)
+//    }
 
 }

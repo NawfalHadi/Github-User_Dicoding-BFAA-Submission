@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.thatnawfal.githubuser.data.model.UserModel
 import com.thatnawfal.githubuser.databinding.FragmentDetailUserBinding
 import com.thatnawfal.githubuser.presentation.ui.home.HomeFragment
 
