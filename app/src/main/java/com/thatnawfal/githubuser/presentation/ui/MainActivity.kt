@@ -1,4 +1,4 @@
-package com.thatnawfal.githubuser.presentation.ui.home
+package com.thatnawfal.githubuser.presentation.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent

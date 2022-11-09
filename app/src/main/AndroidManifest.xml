@@ -14,7 +14,7 @@
         android:theme="@style/Theme.GithubUser"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.ui.home.MainActivity"
+            android:name=".presentation.ui.MainActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.profile.DetailUserActivity"

@@ -9,7 +9,6 @@ import coil.load
 import com.thatnawfal.githubuser.data.model.UserModel
 import com.thatnawfal.githubuser.databinding.ActivityDetailUserBinding
 import com.thatnawfal.githubuser.presentation.ui.home.HomeFragment
-import com.thatnawfal.githubuser.presentation.ui.home.MainActivity
 
 
 class DetailUserActivity : AppCompatActivity() {

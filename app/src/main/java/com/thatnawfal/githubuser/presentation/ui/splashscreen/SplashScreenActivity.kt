@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.thatnawfal.githubuser.R
-import com.thatnawfal.githubuser.presentation.ui.home.MainActivity
+import com.thatnawfal.githubuser.presentation.ui.MainActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
