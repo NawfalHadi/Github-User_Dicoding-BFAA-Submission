@@ -1,20 +1,13 @@
 package com.thatnawfal.githubuser.presentation.ui
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.pm.ActivityInfo
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.thatnawfal.githubuser.R
-import com.thatnawfal.githubuser.data.model.UserModel
 import com.thatnawfal.githubuser.databinding.ActivityMainBinding
-import com.thatnawfal.githubuser.presentation.ui.home.adapter.UserAdapter
-import com.thatnawfal.githubuser.presentation.ui.profile.DetailUserActivity
 
 class MainActivity : AppCompatActivity() {
 
