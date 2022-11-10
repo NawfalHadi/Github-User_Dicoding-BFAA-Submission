@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.thatnawfal.githubuser.data.model.response.UsersModel
 import com.thatnawfal.githubuser.databinding.FragmentDetailUserBinding
 import com.thatnawfal.githubuser.presentation.ui.home.HomeFragment
 
@@ -27,16 +28,16 @@ class DetailUserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val dataUser = arguments?.getParcelable(HomeFragment.EXTRA_KEY) as? UserModel
+        val dataUser = arguments?.getParcelable(HomeFragment.EXTRA_KEY) as? UsersModel
         dataUser?.let { bindingView(it) }
 
         binding.backButtonDetail.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        binding.detailFbToGithub.setOnClickListener{
-            openGithubInBrowser(dataUser?.username)
-        }
+//        binding.detailFbToGithub.setOnClickListener{
+//            openGithubInBrowser(dataUser?.username)
+//        }
     }
 
     private fun openGithubInBrowser(username: String?) {
@@ -46,22 +47,22 @@ class DetailUserFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun bindingView(dataUser: UserModel) {
-        with(binding){
-            with(followsDetailUser){
-                tvFollowers.text = dataUser.follower.toString()
-                tvFollowings.text = dataUser.following.toString()
-            }
-
-            with(headerDetailUser){
-                ivDetailAvatar.load(dataUser.avatar)
-                tvDetailNames.text = dataUser.name
-                tvDetailUsername.text = "@${dataUser.username}"
-                repoUserDetail.tvUserRepo.text = dataUser.repository.toString()
-                tvDetailLocation.text = dataUser.location
-                tvDetailCompany.text = dataUser.company
-            }
-        }
+    private fun bindingView(dataUser: UsersModel) {
+//        with(binding){
+//            with(followsDetailUser){
+//                tvFollowers.text = dataUser.follower.toString()
+//                tvFollowings.text = dataUser.following.toString()
+//            }
+//
+//            with(headerDetailUser){
+//                ivDetailAvatar.load(dataUser.avatar)
+//                tvDetailNames.text = dataUser.name
+//                tvDetailUsername.text = "@${dataUser.username}"
+//                repoUserDetail.tvUserRepo.text = dataUser.repository.toString()
+//                tvDetailLocation.text = dataUser.location
+//                tvDetailCompany.text = dataUser.company
+//            }
+//        }
     }
 
 }

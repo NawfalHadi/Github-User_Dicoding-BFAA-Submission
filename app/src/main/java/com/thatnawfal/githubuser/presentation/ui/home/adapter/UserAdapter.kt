@@ -13,6 +13,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     private lateinit var onItemClickedCallback: OnItemClickedCallback
 
     fun setItem(list: List<UsersModel>) {
+        listData.clear()
         listData.addAll(list)
     }
 
@@ -52,6 +53,6 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     }
 
     interface OnItemClickedCallback {
-        fun itemClicked(item: UserModel)
+        fun itemClicked(item: UsersModel)
     }
 }

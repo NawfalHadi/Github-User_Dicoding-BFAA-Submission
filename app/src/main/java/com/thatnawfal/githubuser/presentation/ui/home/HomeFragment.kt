@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -37,17 +38,37 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.isLoading.observe(viewLifecycleOwner){
-            binding.pbLoadUsers.isVisible = it
+            binding.layoutHomeContent.pbLoadUsers.isVisible = it
         }
 
-        loadListUsers()
+        refreshListUsers()
+        searchFunction()
+    }
+
+    private fun searchFunction() {
+        with(binding.layoutHomeHeader){
+            searchHomeHeader.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    viewModel.searchUsers(query?:"")
+                    refreshListUsers()
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    return true
+                }
+
+            })
+        }
     }
 
     private fun initRecyclerView() {
-        binding.rvUserList.setHasFixedSize(true)
-        binding.rvUserList.layoutManager = LinearLayoutManager(context,
-            LinearLayoutManager.VERTICAL, false)
-        binding.rvUserList.adapter = adapter
+        with(binding.layoutHomeContent){
+            rvUserList.setHasFixedSize(true)
+            rvUserList.layoutManager = LinearLayoutManager(context,
+                LinearLayoutManager.VERTICAL, false)
+            rvUserList.adapter = adapter
+        }
 
 //        adapter.itemClicked(object : UserAdapter.OnItemClickedCallback{
 //            override fun itemClicked(item: UserModel) {
@@ -56,7 +77,7 @@ class HomeFragment : Fragment() {
 //        })
     }
 
-    private fun loadListUsers() {
+    private fun refreshListUsers() {
         viewModel.listUsers.observe(viewLifecycleOwner){
             adapter.setItem(it)
             initRecyclerView()
