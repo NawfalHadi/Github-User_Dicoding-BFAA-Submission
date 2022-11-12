@@ -1,9 +1,11 @@
 package com.thatnawfal.githubuser.data.network.service
 
+import com.thatnawfal.githubuser.data.model.response.DetailUsersModel
 import com.thatnawfal.githubuser.data.model.response.SearchResponse
 import com.thatnawfal.githubuser.data.model.response.UsersModel
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -19,7 +21,8 @@ interface ApiService {
         @Query("per_page") per_page : Int
     ): Call<SearchResponse>
 
-
-
-
+    @GET("users/{username}")
+    fun getDetailUser(
+        @Path("username") username: String
+    ): Call<DetailUsersModel>
 }

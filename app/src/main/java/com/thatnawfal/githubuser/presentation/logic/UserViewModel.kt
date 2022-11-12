@@ -4,9 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.thatnawfal.githubuser.data.model.response.DetailUsersModel
 import com.thatnawfal.githubuser.data.model.response.SearchResponse
 import com.thatnawfal.githubuser.data.model.response.UsersModel
 import com.thatnawfal.githubuser.data.network.service.ApiClient
+import com.thatnawfal.githubuser.data.network.service.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,6 +24,9 @@ class UserViewModel : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _user = MutableLiveData<DetailUsersModel>()
+    val user : LiveData<DetailUsersModel> = _user
 
     init {
         loadUsers()
@@ -73,4 +78,26 @@ class UserViewModel : ViewModel() {
         })
     }
 
+    fun detailUser(username: String){
+        _isLoading.value = true
+        val client = ApiClient.instances().getDetailUser(username)
+
+        client.enqueue(object: Callback<DetailUsersModel>{
+            override fun onResponse(
+                call: Call<DetailUsersModel>,
+                response: Response<DetailUsersModel>
+            ) {
+                if (response.isSuccessful) {
+                    _user.value = response.body()
+                } else {
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<DetailUsersModel>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+
+        })
+    }
 }

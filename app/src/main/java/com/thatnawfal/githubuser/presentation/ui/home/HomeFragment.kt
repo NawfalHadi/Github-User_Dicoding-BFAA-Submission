@@ -8,7 +8,10 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.databinding.FragmentHomeBinding
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.UserAdapter
@@ -70,11 +73,11 @@ class HomeFragment : Fragment() {
             rvUserList.adapter = adapter
         }
 
-//        adapter.itemClicked(object : UserAdapter.OnItemClickedCallback{
-//            override fun itemClicked(item: UserModel) {
-//                showSelectedItem(item)
-//            }
-//        })
+        adapter.itemClicked(object : UserAdapter.OnItemClickedCallback{
+            override fun itemClicked(username: String) {
+                showSelectedItem(username)
+            }
+        })
     }
 
     private fun refreshListUsers() {
@@ -84,10 +87,10 @@ class HomeFragment : Fragment() {
         }
     }
 
-//    private fun showSelectedItem(item: UsersModel) {
-//        val mBundle = Bundle()
-//        mBundle.putParcelable(EXTRA_KEY, item)
-//        findNavController().navigate(R.id.action_homeFragment_to_detailUserFragment, mBundle)
-//    }
+    private fun showSelectedItem(username: String) {
+        val mBundle = Bundle()
+        mBundle.putString(EXTRA_KEY, username)
+        findNavController().navigate(R.id.action_homeFragment_to_detailUserFragment, mBundle)
+    }
 
 }

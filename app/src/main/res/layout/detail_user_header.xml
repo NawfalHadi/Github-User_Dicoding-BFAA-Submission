@@ -73,14 +73,14 @@
 
         <TextView
             android:id="@+id/tv_detail_company"
-            android:layout_width="wrap_content"
+            android:layout_width="256sp"
             android:layout_height="wrap_content"
             android:text="@string/_company"
             android:textColor="@color/white"
             android:layout_marginEnd="8dp"
+            android:textAlignment="textEnd"
             app:layout_constraintEnd_toStartOf="@id/_ic_company"
-            app:layout_constraintTop_toTopOf="@id/_ic_company"
-            app:layout_constraintBottom_toBottomOf="@id/_ic_company"/>
+            app:layout_constraintTop_toTopOf="@id/_ic_company" />
 
 
         <androidx.cardview.widget.CardView

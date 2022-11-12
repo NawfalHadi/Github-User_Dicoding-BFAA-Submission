@@ -45,14 +45,14 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                 itemTvUsernameVertical.text = "@${item.login}"
                 itemIvUserVertical.load(item.avatarUrl)
 
-//                itemViewgroupVertical.setOnClickListener{
-//                    onItemClickedCallback.itemClicked(item)
-//                }
+                itemViewgroupVertical.setOnClickListener{
+                    onItemClickedCallback.itemClicked(item.login!!)
+                }
             }
         }
     }
 
     interface OnItemClickedCallback {
-        fun itemClicked(item: UsersModel)
+        fun itemClicked(username: String)
     }
 }
