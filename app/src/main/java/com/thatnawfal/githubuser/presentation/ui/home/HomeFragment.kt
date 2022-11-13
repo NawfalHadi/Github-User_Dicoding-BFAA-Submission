@@ -49,10 +49,10 @@ class HomeFragment : Fragment() {
 
     private fun searchFunction() {
         with(binding.layoutHomeHeader){
+            searchHomeHeader.setIconifiedByDefault(false)
             searchHomeHeader.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     viewModel.searchUsers(query?:"")
-                    refreshListUsers()
                     return true
                 }
 
@@ -83,15 +83,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun refreshListUsers() {
-        adapter.clearItem()
+        binding.layoutHomeContent.rvUserList.visibility = View.GONE
         viewModel.defaultList.observe(viewLifecycleOwner){
             adapter.setItem(it)
             initRecyclerView()
+            binding.layoutHomeContent.rvUserList.visibility = View.VISIBLE
         }
 
         viewModel.listUsers.observe(viewLifecycleOwner){
             adapter.setItem(it)
             initRecyclerView()
+            binding.layoutHomeContent.rvUserList.visibility = View.VISIBLE
         }
     }
 
