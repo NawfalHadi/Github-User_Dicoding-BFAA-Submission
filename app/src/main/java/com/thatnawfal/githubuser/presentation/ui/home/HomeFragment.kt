@@ -8,7 +8,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thatnawfal.githubuser.R
@@ -58,6 +57,9 @@ class HomeFragment : Fragment() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText?.length == 0) {
+                        viewModel.emptySearchField()
+                    }
                     return true
                 }
 
@@ -81,6 +83,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun refreshListUsers() {
+        adapter.clearItem()
+        viewModel.defaultList.observe(viewLifecycleOwner){
+            adapter.setItem(it)
+            initRecyclerView()
+        }
+
         viewModel.listUsers.observe(viewLifecycleOwner){
             adapter.setItem(it)
             initRecyclerView()

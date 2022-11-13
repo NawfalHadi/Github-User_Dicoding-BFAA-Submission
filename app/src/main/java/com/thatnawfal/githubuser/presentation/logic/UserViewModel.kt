@@ -8,7 +8,6 @@ import com.thatnawfal.githubuser.data.model.response.DetailUsersModel
 import com.thatnawfal.githubuser.data.model.response.SearchResponse
 import com.thatnawfal.githubuser.data.model.response.UsersModel
 import com.thatnawfal.githubuser.data.network.service.ApiClient
-import com.thatnawfal.githubuser.data.network.service.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,6 +17,9 @@ class UserViewModel : ViewModel() {
     companion object {
         const val TAG = "UserViewModel : "
     }
+
+    private val _defaultList = MutableLiveData<List<UsersModel>>()
+    val defaultList : LiveData<List<UsersModel>> = _defaultList
 
     private val _listUsers = MutableLiveData<List<UsersModel>>()
     val listUsers : LiveData<List<UsersModel>> = _listUsers
@@ -41,7 +43,7 @@ class UserViewModel : ViewModel() {
                 _isLoading.value = false
 
                 if (response.isSuccessful) {
-                    _listUsers.value = response.body() as List<UsersModel>
+                    _defaultList.value = response.body() as List<UsersModel>
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
@@ -87,6 +89,8 @@ class UserViewModel : ViewModel() {
                 call: Call<DetailUsersModel>,
                 response: Response<DetailUsersModel>
             ) {
+                _isLoading.value = false
+
                 if (response.isSuccessful) {
                     _user.value = response.body()
                 } else {
@@ -95,9 +99,14 @@ class UserViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<DetailUsersModel>, t: Throwable) {
+                _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
 
         })
+    }
+
+    fun emptySearchField(){
+        _defaultList.value = defaultList.value
     }
 }

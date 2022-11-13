@@ -17,6 +17,10 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         listData.addAll(list)
     }
 
+    fun clearItem(){
+        listData.clear()
+    }
+
     fun itemClicked(onItemClickedCallback: OnItemClickedCallback){
         this.onItemClickedCallback = onItemClickedCallback
     }

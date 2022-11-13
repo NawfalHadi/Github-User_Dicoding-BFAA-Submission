@@ -12,7 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.thatnawfal.githubuser.data.model.response.DetailUsersModel
-import com.thatnawfal.githubuser.data.model.response.UsersModel
 import com.thatnawfal.githubuser.databinding.FragmentDetailUserBinding
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.HomeFragment
@@ -36,17 +35,27 @@ class DetailUserFragment : Fragment() {
         val username = arguments?.getString(HomeFragment.EXTRA_KEY)
 
         viewModel.detailUser(username?:"mojombo")
+
+        binding.headerDetailUser.shimmerDetailUserHeader.startShimmer()
+
         viewModel.user.observe(viewLifecycleOwner){
             bindingView(it)
+            stopShimmer()
         }
 
         binding.backButtonDetail.setOnClickListener {
             findNavController().popBackStack()
         }
 
-//        binding.detailFbToGithub.setOnClickListener{
-//            openGithubInBrowser(dataUser?.username)
-//        }
+    }
+
+    private fun stopShimmer() {
+        with(binding){
+            with(headerDetailUser){
+                shimmerDetailUserHeader.stopShimmer()
+                shimmerDetailUserHeader.visibility = View.GONE
+            }
+        }
     }
 
     private fun openGithubInBrowser(username: String?) {
@@ -57,7 +66,16 @@ class DetailUserFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun bindingView(dataUser: DetailUsersModel) {
+
         with(binding){
+
+            detailFbToGithub.apply {
+                visibility = View.VISIBLE
+                setOnClickListener{
+                    openGithubInBrowser(dataUser.login)
+                }
+            }
+
             with(followsDetailUser){
                 tvFollowers.text = dataUser.followers.toString()
                 tvFollowings.text = dataUser.following.toString()
@@ -65,6 +83,8 @@ class DetailUserFragment : Fragment() {
 
             with(headerDetailUser){
                 ivDetailAvatar.load(dataUser.avatarUrl)
+                ivDetailAvatar.visibility = View.VISIBLE
+
                 tvDetailNames.text = dataUser.name
                 tvDetailUsername.text = "@${dataUser.login}"
                 repoUserDetail.tvUserRepo.text = dataUser.publicRepos.toString()
