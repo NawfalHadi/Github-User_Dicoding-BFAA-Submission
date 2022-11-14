@@ -5,7 +5,7 @@
     android:id="@+id/user_profie"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="?attr/colorPrimaryVariant"
+    app:cardBackgroundColor="@color/transparant"
     app:cardCornerRadius="0dp"
     android:elevation="8dp"
     app:cardElevation="8dp">
@@ -14,19 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="@drawable/bg_header_profile">
-
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_detail_user_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <include layout="@layout/detail_user_header_shimmer"/>
-
-        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <View
             android:id="@+id/view_right_align"
@@ -45,7 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <include
-            android:id="@+id/repo_user_detail"
+            android:id="@+id/shimmer_repo_user_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             layout="@layout/detail_user_repo"
@@ -59,14 +46,15 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_location"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@id/repo_user_detail"
-            app:layout_constraintTop_toBottomOf="@id/repo_user_detail"
+            app:layout_constraintEnd_toEndOf="@id/shimmer_repo_user_detail"
+            app:layout_constraintTop_toBottomOf="@id/shimmer_repo_user_detail"
             android:contentDescription="@string/users_location" />
 
         <TextView
-            android:id="@+id/tv_detail_location"
-            android:layout_width="wrap_content"
+            android:id="@+id/shimmer_tv_detail_location"
+            android:layout_width="128sp"
             android:layout_height="wrap_content"
+            android:background="@color/shimmer_color"
             android:textColor="@color/white"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@id/_ic_location"
@@ -84,12 +72,13 @@
             app:layout_constraintTop_toBottomOf="@id/_ic_location" />
 
         <TextView
-            android:id="@+id/tv_detail_company"
-            android:layout_width="256sp"
+            android:id="@+id/shimmer_tv_detail_company"
+            android:layout_width="128sp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:layout_marginEnd="8dp"
+            android:background="@color/shimmer_color"
             android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="@+id/_ic_company"
             app:layout_constraintEnd_toStartOf="@id/_ic_company"
             app:layout_constraintTop_toTopOf="@id/_ic_company" />
 
@@ -105,18 +94,19 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <ImageView
-                android:id="@+id/iv_detail_avatar"
+                android:id="@+id/shimmer_iv_detail_avatar"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:visibility="gone"
+                android:background="@color/shimmer_color"
                 android:contentDescription="@string/user_image_profile" />
 
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/tv_detail_names"
-            android:layout_width="wrap_content"
+            android:id="@+id/shimmer_tv_detail_names"
+            android:layout_width="256sp"
             android:layout_height="wrap_content"
+            android:background="@color/shimmer_color"
             android:elevation="9dp"
             android:textColor="@color/white"
             style="@style/boldText"
@@ -124,13 +114,15 @@
             app:layout_constraintTop_toTopOf="@id/_cardImage"/>
 
         <TextView
-            android:id="@+id/tv_detail_username"
-            android:layout_width="wrap_content"
+            android:id="@+id/shimmer_tv_detail_username"
+            android:layout_width="128sp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="@color/shimmer_color"
             android:elevation="9dp"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@id/tv_detail_names"
-            app:layout_constraintTop_toBottomOf="@id/tv_detail_names"/>
+            app:layout_constraintStart_toStartOf="@id/shimmer_tv_detail_names"
+            app:layout_constraintTop_toBottomOf="@id/shimmer_tv_detail_names"/>
 
         <ImageView
             android:layout_width="170dp"
@@ -142,7 +134,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="@string/github_icon" />
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

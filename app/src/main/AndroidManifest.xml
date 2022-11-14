@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.thatnawfal.githubuser">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,10 +16,7 @@
         android:theme="@style/Theme.GithubUser"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.ui.home.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.ui.profile.DetailUserActivity"
+            android:name=".presentation.ui.MainActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.splashscreen.SplashScreenActivity"

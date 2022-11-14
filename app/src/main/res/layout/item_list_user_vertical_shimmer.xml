@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_viewgroup_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/itemIv_user_vertical"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@color/gray_80"
+        android:elevation="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/itemTv_name_vertical"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_80"
+        style="@style/boldText"
+        android:textSize="32sp"
+        app:layout_constraintTop_toTopOf="@id/itemIv_user_vertical"
+        app:layout_constraintStart_toEndOf="@id/itemIv_user_vertical"/>
+
+    <TextView
+        android:id="@+id/itemTv_username_vertical"
+        android:layout_width="128dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/gray_80"
+        app:layout_constraintTop_toBottomOf="@id/itemTv_name_vertical"
+        app:layout_constraintStart_toStartOf="@id/itemTv_name_vertical"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
