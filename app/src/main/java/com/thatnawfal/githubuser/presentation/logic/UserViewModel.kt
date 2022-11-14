@@ -24,6 +24,12 @@ class UserViewModel : ViewModel() {
     private val _listUsers = MutableLiveData<List<UsersModel>>()
     val listUsers : LiveData<List<UsersModel>> = _listUsers
 
+    private val _listFollowers = MutableLiveData<List<UsersModel>>()
+    val listFollowers : LiveData<List<UsersModel>> = _listFollowers
+
+    private val _listFollowing = MutableLiveData<List<UsersModel>>()
+    val listFollowing : LiveData<List<UsersModel>> = _listFollowing
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -100,6 +106,33 @@ class UserViewModel : ViewModel() {
 
             override fun onFailure(call: Call<DetailUsersModel>, t: Throwable) {
                 _isLoading.value = false
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+
+        })
+    }
+
+    fun getListFollows(username: String, follows: String, per_page: Int = 0){
+        _isLoading.value = true
+        val client= ApiClient.instances().getFollowsList(username, follows, per_page)
+
+        client.enqueue(object : Callback<List<UsersModel>>{
+            override fun onResponse(
+                call: Call<List<UsersModel>>,
+                response: Response<List<UsersModel>>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    when(follows){
+                        "followers" -> _listFollowers.value = response.body() as List<UsersModel>
+                        "following" -> _listFollowing.value = response.body() as List<UsersModel>
+                    }
+                } else {
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<UsersModel>>, t: Throwable) {
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
 

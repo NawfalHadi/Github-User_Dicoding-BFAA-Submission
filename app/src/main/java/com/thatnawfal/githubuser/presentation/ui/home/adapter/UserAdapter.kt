@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.thatnawfal.githubuser.data.model.response.UsersModel
 import com.thatnawfal.githubuser.databinding.ItemListUserVerticalBinding
+import java.lang.StringBuilder
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     private var listData : MutableList<UsersModel> = mutableListOf()
@@ -42,7 +43,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
             with(binding){
                 itemTvNameVertical.text = item.login
                 // here change by suggestion from the reviewer before
-                itemTvUsernameVertical.text = "@${item.login}"
+                itemTvUsernameVertical.text = StringBuilder("@").append(item.login)
                 itemIvUserVertical.load(item.avatarUrl)
 
                 itemViewgroupVertical.setOnClickListener{

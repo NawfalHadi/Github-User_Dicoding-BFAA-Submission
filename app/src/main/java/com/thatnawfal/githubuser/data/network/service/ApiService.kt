@@ -25,4 +25,11 @@ interface ApiService {
     fun getDetailUser(
         @Path("username") username: String
     ): Call<DetailUsersModel>
+
+    @GET("users/{username}/{follow}?")
+    fun getFollowsList(
+        @Path("username") username: String,
+        @Path("follow") follow: String,
+        @Query("per_page") per_page : Int
+    ): Call<List<UsersModel>>
 }

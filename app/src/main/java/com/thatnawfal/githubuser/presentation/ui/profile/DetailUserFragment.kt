@@ -11,14 +11,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.google.android.material.tabs.TabLayoutMediator
+import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.data.model.response.DetailUsersModel
 import com.thatnawfal.githubuser.databinding.FragmentDetailUserBinding
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.HomeFragment
+import com.thatnawfal.githubuser.presentation.ui.profile.adapter.FollowsPagerAdapter
+import java.lang.StringBuilder
 
 class DetailUserFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailUserBinding
+
     private val viewModel by viewModels<UserViewModel>()
 
     override fun onCreateView(
@@ -33,11 +38,9 @@ class DetailUserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val username = arguments?.getString(HomeFragment.EXTRA_KEY)
-
         viewModel.detailUser(username?:"mojombo")
 
         binding.headerDetailUser.shimmerDetailUserHeader.startShimmer()
-
         viewModel.user.observe(viewLifecycleOwner){
             bindingView(it)
             stopShimmer()
@@ -66,9 +69,13 @@ class DetailUserFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun bindingView(dataUser: DetailUsersModel) {
+        val tabTitles = arrayOf(
+            "(${dataUser.followers}) ${resources.getString(R.string.followers)}",
+            "(${dataUser.following}) ${resources.getString(R.string.following)}"
+        )
+        FollowsFragment.username = dataUser.login
 
         with(binding){
-
             detailFbToGithub.apply {
                 visibility = View.VISIBLE
                 setOnClickListener{
@@ -77,8 +84,10 @@ class DetailUserFragment : Fragment() {
             }
 
             with(followsDetailUser){
-                tvFollowers.text = dataUser.followers.toString()
-                tvFollowings.text = dataUser.following.toString()
+                viewpagerFollows.adapter = parentFragment?.let { FollowsPagerAdapter(it) }
+                TabLayoutMediator(tabsFollow, viewpagerFollows) { tab, position ->
+                    tab.text = tabTitles[position]
+                }.attach()
             }
 
             with(headerDetailUser){
@@ -86,7 +95,7 @@ class DetailUserFragment : Fragment() {
                 ivDetailAvatar.visibility = View.VISIBLE
 
                 tvDetailNames.text = dataUser.name
-                tvDetailUsername.text = "@${dataUser.login}"
+                tvDetailUsername.text = StringBuilder("@").append(dataUser.login)
                 repoUserDetail.tvUserRepo.text = dataUser.publicRepos.toString()
                 tvDetailLocation.text = dataUser.location
                 tvDetailCompany.text = dataUser.company
