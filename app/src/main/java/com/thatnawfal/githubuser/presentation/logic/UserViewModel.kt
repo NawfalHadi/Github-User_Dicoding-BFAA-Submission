@@ -40,7 +40,7 @@ class UserViewModel : ViewModel() {
         loadUsers()
     }
 
-    private fun loadUsers() {
+    fun loadUsers() {
         _isLoading.value = true
         val client = ApiClient.instances().getUsers(10)
 

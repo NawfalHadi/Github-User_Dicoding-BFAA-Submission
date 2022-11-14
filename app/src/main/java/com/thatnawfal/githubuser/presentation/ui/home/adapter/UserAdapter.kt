@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
+import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.data.model.response.UsersModel
 import com.thatnawfal.githubuser.databinding.ItemListUserVerticalBinding
 import java.lang.StringBuilder
@@ -44,7 +46,11 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                 itemTvNameVertical.text = item.login
                 // here change by suggestion from the reviewer before
                 itemTvUsernameVertical.text = StringBuilder("@").append(item.login)
-                itemIvUserVertical.load(item.avatarUrl)
+                itemIvUserVertical.load(item.avatarUrl) {
+                    crossfade(true)
+                    placeholder(R.color.gray_80)
+                    transformations(CircleCropTransformation())
+                }
 
                 itemViewgroupVertical.setOnClickListener{
                     onItemClickedCallback.itemClicked(item.login!!)

@@ -36,6 +36,7 @@ class DetailUserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        tabsPagerLoading()
 
         val username = arguments?.getString(HomeFragment.EXTRA_KEY)
         viewModel.detailUser(username?:"mojombo")
@@ -50,6 +51,20 @@ class DetailUserFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+    }
+
+    private fun tabsPagerLoading() {
+        val tabTitles = arrayOf(
+            "(0) ${resources.getString(R.string.followers)}",
+            "(0) ${resources.getString(R.string.following)}"
+        )
+
+        with(binding.followsDetailUser){
+            viewpagerFollows.adapter = parentFragment?.let { FollowsPagerAdapter(it) }
+            TabLayoutMediator(tabsFollow, viewpagerFollows) { tab, position ->
+                tab.text = tabTitles[position]
+            }.attach()
+        }
     }
 
     private fun stopShimmer() {

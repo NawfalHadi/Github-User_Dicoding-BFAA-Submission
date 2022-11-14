@@ -36,6 +36,8 @@ class FollowsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.shimmerList.startShimmer()
+
         viewModel.getListFollows(username.toString(), "followers")
         viewModel.getListFollows(username.toString(), "following")
 
@@ -48,12 +50,22 @@ class FollowsFragment : Fragment() {
             1 -> {
                 viewModel.listFollowers.observe(viewLifecycleOwner){
                     adapter.setItem(it)
+                    binding.shimmerList.apply {
+                        stopShimmer()
+                        visibility = View.GONE
+                    }
+
                     initRecyclerView()
                 }
             }
             2 -> {
                 viewModel.listFollowing.observe(viewLifecycleOwner){
                     adapter.setItem(it)
+                    binding.shimmerList.apply {
+                        stopShimmer()
+                        visibility = View.GONE
+                    }
+
                     initRecyclerView()
                 }
             }

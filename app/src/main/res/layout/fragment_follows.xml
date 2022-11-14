@@ -5,6 +5,15 @@
     android:layout_height="0dp"
     tools:context=".presentation.ui.profile.FollowsFragment">
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/list_shimmer"/>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_userList"
         android:layout_width="match_parent"

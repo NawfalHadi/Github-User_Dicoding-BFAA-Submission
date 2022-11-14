@@ -53,11 +53,18 @@ class HomeFragment : Fragment() {
             searchHomeHeader.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     viewModel.searchUsers(query?:"")
+                    binding.layoutHomeContent.rvUserList.visibility = View.GONE
+                    binding.layoutHomeContent.shimmerList.visibility = View.VISIBLE
+                    binding.layoutHomeContent.shimmerList.startShimmer()
                     return true
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
                     if (newText?.length == 0) {
+                        binding.layoutHomeContent.rvUserList.visibility = View.GONE
+                        binding.layoutHomeContent.shimmerList.visibility = View.VISIBLE
+                        binding.layoutHomeContent.shimmerList.startShimmer()
+
                         viewModel.emptySearchField()
                     }
                     return true
@@ -83,17 +90,29 @@ class HomeFragment : Fragment() {
     }
 
     private fun refreshListUsers() {
+        binding.layoutHomeContent.shimmerList.startShimmer()
+
         binding.layoutHomeContent.rvUserList.visibility = View.GONE
         viewModel.defaultList.observe(viewLifecycleOwner){
             adapter.setItem(it)
             initRecyclerView()
+
+            binding.layoutHomeContent.shimmerList.stopShimmer()
+            binding.layoutHomeContent.shimmerList.visibility = View.GONE
             binding.layoutHomeContent.rvUserList.visibility = View.VISIBLE
         }
 
         viewModel.listUsers.observe(viewLifecycleOwner){
-            adapter.setItem(it)
-            initRecyclerView()
-            binding.layoutHomeContent.rvUserList.visibility = View.VISIBLE
+            if (it.isNotEmpty()) {
+                adapter.setItem(it)
+                initRecyclerView()
+
+                binding.layoutHomeContent.shimmerList.stopShimmer()
+                binding.layoutHomeContent.shimmerList.visibility = View.GONE
+                binding.layoutHomeContent.rvUserList.visibility = View.VISIBLE
+            } else {
+                viewModel.loadUsers()
+            }
         }
     }
 

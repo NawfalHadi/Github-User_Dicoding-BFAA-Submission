@@ -15,11 +15,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/list_shimmer"/>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_userList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_list_user_vertical"
+        android:visibility="gone"
         tools:itemCount="3"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
