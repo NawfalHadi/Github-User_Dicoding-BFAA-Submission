@@ -8,6 +8,7 @@ import com.thatnawfal.githubuser.data.model.response.DetailUsersModel
 import com.thatnawfal.githubuser.data.model.response.SearchResponse
 import com.thatnawfal.githubuser.data.model.response.UsersModel
 import com.thatnawfal.githubuser.data.network.service.ApiClient
+import com.thatnawfal.githubuser.wrapper.Event
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,6 +37,9 @@ class UserViewModel : ViewModel() {
     private val _user = MutableLiveData<DetailUsersModel>()
     val user : LiveData<DetailUsersModel> = _user
 
+    private val _snackbarMsg = MutableLiveData<Event<String>>()
+    val snackbarMsg : LiveData<Event<String>> = _snackbarMsg
+
     init {
         loadUsers()
     }
@@ -51,13 +55,13 @@ class UserViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _defaultList.value = response.body() as List<UsersModel>
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    _snackbarMsg.value = Event(response.message())
                 }
             }
 
             override fun onFailure(call: Call<List<UsersModel>>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
+                _snackbarMsg.value = Event(t.message.toString())
             }
 
         })
@@ -72,15 +76,17 @@ class UserViewModel : ViewModel() {
                 call: Call<SearchResponse>,
                 response: Response<SearchResponse>
             ) {
+                _isLoading.value = false
                 if (response.isSuccessful) {
                     _listUsers.value = response.body()?.items as List<UsersModel>
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    _snackbarMsg.value = Event(response.message())
                 }
             }
 
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
+                _isLoading.value = false
+                _snackbarMsg.value = Event(t.message.toString())
             }
 
         })
@@ -100,13 +106,13 @@ class UserViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _user.value = response.body()
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    _snackbarMsg.value = Event(response.message())
                 }
             }
 
             override fun onFailure(call: Call<DetailUsersModel>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
+                _snackbarMsg.value = Event(t.message.toString())
             }
 
         })
@@ -128,12 +134,13 @@ class UserViewModel : ViewModel() {
                         "following" -> _listFollowing.value = response.body() as List<UsersModel>
                     }
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    _snackbarMsg.value = Event(response.message())
                 }
             }
 
             override fun onFailure(call: Call<List<UsersModel>>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
+                _isLoading.value = false
+                _snackbarMsg.value = Event(t.message.toString())
             }
 
         })

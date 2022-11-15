@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.databinding.FragmentHomeBinding
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
@@ -43,8 +44,23 @@ class HomeFragment : Fragment() {
             binding.layoutHomeContent.pbLoadUsers.isVisible = it
         }
 
+        errorSnackbar()
         refreshListUsers()
         searchFunction()
+    }
+
+    private fun errorSnackbar() {
+        viewModel.snackbarMsg.observe(viewLifecycleOwner){
+            it.getContentIfNotHandled()?.let { msg ->
+                activity?.window?.decorView?.rootView?.let { rootView ->
+                    Snackbar.make(
+                        rootView,
+                        msg,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
     private fun searchFunction() {

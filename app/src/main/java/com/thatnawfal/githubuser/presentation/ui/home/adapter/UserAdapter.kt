@@ -47,9 +47,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                 // here change by suggestion from the reviewer before
                 itemTvUsernameVertical.text = StringBuilder("@").append(item.login)
                 itemIvUserVertical.load(item.avatarUrl) {
-                    crossfade(true)
                     placeholder(R.color.gray_80)
-                    transformations(CircleCropTransformation())
                 }
 
                 itemViewgroupVertical.setOnClickListener{

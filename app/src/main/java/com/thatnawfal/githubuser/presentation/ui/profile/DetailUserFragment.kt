@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.data.model.response.DetailUsersModel
@@ -39,7 +40,7 @@ class DetailUserFragment : Fragment() {
         tabsPagerLoading()
 
         val username = arguments?.getString(HomeFragment.EXTRA_KEY)
-        viewModel.detailUser(username?:"mojombo")
+        viewModel.detailUser(username!!)
 
         binding.headerDetailUser.shimmerDetailUserHeader.startShimmer()
         viewModel.user.observe(viewLifecycleOwner){
@@ -51,6 +52,21 @@ class DetailUserFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        errorSnackbar()
+    }
+
+    private fun errorSnackbar() {
+        viewModel.snackbarMsg.observe(viewLifecycleOwner){
+            it.getContentIfNotHandled()?.let { msg ->
+                activity?.window?.decorView?.rootView?.let { rootView ->
+                    Snackbar.make(
+                        rootView,
+                        msg,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
     private fun tabsPagerLoading() {
