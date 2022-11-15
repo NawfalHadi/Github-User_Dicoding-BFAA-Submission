@@ -23,7 +23,7 @@ class FollowsFragment : Fragment() {
 
     private lateinit var binding: FragmentFollowsBinding
     private val viewModel by viewModels<UserViewModel>()
-    private val adapter : UserAdapter by lazy { UserAdapter() }
+    private val adapter: UserAdapter by lazy { UserAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,9 +46,9 @@ class FollowsFragment : Fragment() {
     }
 
     private fun initTabs(followsTab: Int?) {
-        when(followsTab){
+        when (followsTab) {
             1 -> {
-                viewModel.listFollowers.observe(viewLifecycleOwner){
+                viewModel.listFollowers.observe(viewLifecycleOwner) {
                     adapter.setItem(it)
                     binding.shimmerList.apply {
                         stopShimmer()
@@ -59,7 +59,7 @@ class FollowsFragment : Fragment() {
                 }
             }
             2 -> {
-                viewModel.listFollowing.observe(viewLifecycleOwner){
+                viewModel.listFollowing.observe(viewLifecycleOwner) {
                     adapter.setItem(it)
                     binding.shimmerList.apply {
                         stopShimmer()
@@ -73,20 +73,22 @@ class FollowsFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        with(binding){
+        with(binding) {
             rvUserList.setHasFixedSize(true)
-            rvUserList.layoutManager = LinearLayoutManager(context,
-                LinearLayoutManager.VERTICAL, false)
+            rvUserList.layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.VERTICAL, false
+            )
             rvUserList.adapter = adapter
         }
 
-        adapter.itemClicked(object : UserAdapter.OnItemClickedCallback{
+        adapter.itemClicked(object : UserAdapter.OnItemClickedCallback {
             override fun itemClicked(username: String) {
                 showSelectedItem(username)
             }
         })
     }
-    
+
 
     private fun showSelectedItem(username: String) {
         findNavController().popBackStack()

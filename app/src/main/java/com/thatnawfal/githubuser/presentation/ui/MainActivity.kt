@@ -11,7 +11,7 @@ import com.thatnawfal.githubuser.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -27,9 +27,6 @@ class MainActivity : AppCompatActivity() {
 
         navController = navHostFragment.navController
     }
-
-
-
 
 
 }

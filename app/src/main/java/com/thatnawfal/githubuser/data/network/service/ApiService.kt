@@ -12,13 +12,13 @@ interface ApiService {
 
     @GET("/users?")
     fun getUsers(
-        @Query("per_page") per_page : Int
+        @Query("per_page") per_page: Int
     ): Call<List<UsersModel>>
 
     @GET("/search/users?")
     fun searchUsers(
         @Query("q") q: String,
-        @Query("per_page") per_page : Int
+        @Query("per_page") per_page: Int
     ): Call<SearchResponse>
 
     @GET("users/{username}")
@@ -30,6 +30,6 @@ interface ApiService {
     fun getFollowsList(
         @Path("username") username: String,
         @Path("follow") follow: String,
-        @Query("per_page") per_page : Int
+        @Query("per_page") per_page: Int
     ): Call<List<UsersModel>>
 }

@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
     private val viewModel by viewModels<UserViewModel>()
     private lateinit var binding: FragmentHomeBinding
 
-    private val adapter : UserAdapter by lazy {
+    private val adapter: UserAdapter by lazy {
         UserAdapter()
     }
 
@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.isLoading.observe(viewLifecycleOwner){
+        viewModel.isLoading.observe(viewLifecycleOwner) {
             binding.layoutHomeContent.pbLoadUsers.isVisible = it
         }
 
@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun errorSnackbar() {
-        viewModel.snackbarMsg.observe(viewLifecycleOwner){
+        viewModel.snackbarMsg.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { msg ->
                 activity?.window?.decorView?.rootView?.let { rootView ->
                     Snackbar.make(
@@ -64,11 +64,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun searchFunction() {
-        with(binding.layoutHomeHeader){
+        with(binding.layoutHomeHeader) {
             searchHomeHeader.setIconifiedByDefault(false)
-            searchHomeHeader.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            searchHomeHeader.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    viewModel.searchUsers(query?:"")
+                    viewModel.searchUsers(query ?: "")
                     binding.layoutHomeContent.rvUserList.visibility = View.GONE
                     binding.layoutHomeContent.shimmerList.visibility = View.VISIBLE
                     binding.layoutHomeContent.shimmerList.startShimmer()
@@ -91,14 +91,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        with(binding.layoutHomeContent){
+        with(binding.layoutHomeContent) {
             rvUserList.setHasFixedSize(true)
-            rvUserList.layoutManager = LinearLayoutManager(context,
-                LinearLayoutManager.VERTICAL, false)
+            rvUserList.layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.VERTICAL, false
+            )
             rvUserList.adapter = adapter
         }
 
-        adapter.itemClicked(object : UserAdapter.OnItemClickedCallback{
+        adapter.itemClicked(object : UserAdapter.OnItemClickedCallback {
             override fun itemClicked(username: String) {
                 showSelectedItem(username)
             }
@@ -109,7 +111,7 @@ class HomeFragment : Fragment() {
         binding.layoutHomeContent.shimmerList.startShimmer()
 
         binding.layoutHomeContent.rvUserList.visibility = View.GONE
-        viewModel.defaultList.observe(viewLifecycleOwner){
+        viewModel.defaultList.observe(viewLifecycleOwner) {
             adapter.setItem(it)
             initRecyclerView()
 
@@ -118,7 +120,7 @@ class HomeFragment : Fragment() {
             binding.layoutHomeContent.rvUserList.visibility = View.VISIBLE
         }
 
-        viewModel.listUsers.observe(viewLifecycleOwner){
+        viewModel.listUsers.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 adapter.setItem(it)
                 initRecyclerView()

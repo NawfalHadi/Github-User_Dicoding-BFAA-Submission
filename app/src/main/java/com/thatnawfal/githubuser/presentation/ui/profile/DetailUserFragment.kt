@@ -19,7 +19,6 @@ import com.thatnawfal.githubuser.databinding.FragmentDetailUserBinding
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.HomeFragment
 import com.thatnawfal.githubuser.presentation.ui.profile.adapter.FollowsPagerAdapter
-import java.lang.StringBuilder
 
 class DetailUserFragment : Fragment() {
 
@@ -43,7 +42,7 @@ class DetailUserFragment : Fragment() {
         viewModel.detailUser(username!!)
 
         binding.headerDetailUser.shimmerDetailUserHeader.startShimmer()
-        viewModel.user.observe(viewLifecycleOwner){
+        viewModel.user.observe(viewLifecycleOwner) {
             bindingView(it)
             stopShimmer()
         }
@@ -56,7 +55,7 @@ class DetailUserFragment : Fragment() {
     }
 
     private fun errorSnackbar() {
-        viewModel.snackbarMsg.observe(viewLifecycleOwner){
+        viewModel.snackbarMsg.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { msg ->
                 activity?.window?.decorView?.rootView?.let { rootView ->
                     Snackbar.make(
@@ -75,7 +74,7 @@ class DetailUserFragment : Fragment() {
             "(0) ${resources.getString(R.string.following)}"
         )
 
-        with(binding.followsDetailUser){
+        with(binding.followsDetailUser) {
             viewpagerFollows.adapter = parentFragment?.let { FollowsPagerAdapter(it) }
             TabLayoutMediator(tabsFollow, viewpagerFollows) { tab, position ->
                 tab.text = tabTitles[position]
@@ -84,8 +83,8 @@ class DetailUserFragment : Fragment() {
     }
 
     private fun stopShimmer() {
-        with(binding){
-            with(headerDetailUser){
+        with(binding) {
+            with(headerDetailUser) {
                 shimmerDetailUserHeader.stopShimmer()
                 shimmerDetailUserHeader.visibility = View.GONE
             }
@@ -106,22 +105,22 @@ class DetailUserFragment : Fragment() {
         )
         FollowsFragment.username = dataUser.login
 
-        with(binding){
+        with(binding) {
             detailFbToGithub.apply {
                 visibility = View.VISIBLE
-                setOnClickListener{
+                setOnClickListener {
                     openGithubInBrowser(dataUser.login)
                 }
             }
 
-            with(followsDetailUser){
+            with(followsDetailUser) {
                 viewpagerFollows.adapter = parentFragment?.let { FollowsPagerAdapter(it) }
                 TabLayoutMediator(tabsFollow, viewpagerFollows) { tab, position ->
                     tab.text = tabTitles[position]
                 }.attach()
             }
 
-            with(headerDetailUser){
+            with(headerDetailUser) {
                 ivDetailAvatar.load(dataUser.avatarUrl)
                 ivDetailAvatar.visibility = View.VISIBLE
 

@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import coil.transform.CircleCropTransformation
 import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.data.model.response.UsersModel
 import com.thatnawfal.githubuser.databinding.ItemListUserVerticalBinding
-import java.lang.StringBuilder
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
-    private var listData : MutableList<UsersModel> = mutableListOf()
+    private var listData: MutableList<UsersModel> = mutableListOf()
     private lateinit var onItemClickedCallback: OnItemClickedCallback
 
     fun setItem(list: List<UsersModel>) {
@@ -20,12 +18,13 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         listData.addAll(list)
     }
 
-    fun itemClicked(onItemClickedCallback: OnItemClickedCallback){
+    fun itemClicked(onItemClickedCallback: OnItemClickedCallback) {
         this.onItemClickedCallback = onItemClickedCallback
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdapter.UserViewHolder {
-        val binding = ItemListUserVerticalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemListUserVerticalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UserViewHolder(binding)
     }
 
@@ -42,7 +41,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
         @SuppressLint("SetTextI18n")
         fun bindingView(item: UsersModel) {
-            with(binding){
+            with(binding) {
                 itemTvNameVertical.text = item.login
                 // here change by suggestion from the reviewer before
                 itemTvUsernameVertical.text = StringBuilder("@").append(item.login)
@@ -50,7 +49,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                     placeholder(R.color.gray_80)
                 }
 
-                itemViewgroupVertical.setOnClickListener{
+                itemViewgroupVertical.setOnClickListener {
                     onItemClickedCallback.itemClicked(item.login!!)
                 }
             }

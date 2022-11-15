@@ -1,6 +1,5 @@
 package com.thatnawfal.githubuser.presentation.logic
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,25 +19,25 @@ class UserViewModel : ViewModel() {
     }
 
     private val _defaultList = MutableLiveData<List<UsersModel>>()
-    val defaultList : LiveData<List<UsersModel>> = _defaultList
+    val defaultList: LiveData<List<UsersModel>> = _defaultList
 
     private val _listUsers = MutableLiveData<List<UsersModel>>()
-    val listUsers : LiveData<List<UsersModel>> = _listUsers
+    val listUsers: LiveData<List<UsersModel>> = _listUsers
 
     private val _listFollowers = MutableLiveData<List<UsersModel>>()
-    val listFollowers : LiveData<List<UsersModel>> = _listFollowers
+    val listFollowers: LiveData<List<UsersModel>> = _listFollowers
 
     private val _listFollowing = MutableLiveData<List<UsersModel>>()
-    val listFollowing : LiveData<List<UsersModel>> = _listFollowing
+    val listFollowing: LiveData<List<UsersModel>> = _listFollowing
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
     private val _user = MutableLiveData<DetailUsersModel>()
-    val user : LiveData<DetailUsersModel> = _user
+    val user: LiveData<DetailUsersModel> = _user
 
     private val _snackbarMsg = MutableLiveData<Event<String>>()
-    val snackbarMsg : LiveData<Event<String>> = _snackbarMsg
+    val snackbarMsg: LiveData<Event<String>> = _snackbarMsg
 
     init {
         loadUsers()
@@ -49,7 +48,10 @@ class UserViewModel : ViewModel() {
         val client = ApiClient.instances().getUsers(10)
 
         client.enqueue(object : Callback<List<UsersModel>> {
-            override fun onResponse(call: Call<List<UsersModel>>, response: Response<List<UsersModel>>) {
+            override fun onResponse(
+                call: Call<List<UsersModel>>,
+                response: Response<List<UsersModel>>
+            ) {
                 _isLoading.value = false
 
                 if (response.isSuccessful) {
@@ -67,11 +69,11 @@ class UserViewModel : ViewModel() {
         })
     }
 
-    fun searchUsers(username: String, per_page : Int = 0){
+    fun searchUsers(username: String, per_page: Int = 0) {
         _isLoading.value = true
         val client = ApiClient.instances().searchUsers(username, per_page)
 
-        client.enqueue(object : Callback<SearchResponse>{
+        client.enqueue(object : Callback<SearchResponse> {
             override fun onResponse(
                 call: Call<SearchResponse>,
                 response: Response<SearchResponse>
@@ -92,11 +94,11 @@ class UserViewModel : ViewModel() {
         })
     }
 
-    fun detailUser(username: String){
+    fun detailUser(username: String) {
         _isLoading.value = true
         val client = ApiClient.instances().getDetailUser(username)
 
-        client.enqueue(object: Callback<DetailUsersModel>{
+        client.enqueue(object : Callback<DetailUsersModel> {
             override fun onResponse(
                 call: Call<DetailUsersModel>,
                 response: Response<DetailUsersModel>
@@ -118,18 +120,18 @@ class UserViewModel : ViewModel() {
         })
     }
 
-    fun getListFollows(username: String, follows: String, per_page: Int = 0){
+    fun getListFollows(username: String, follows: String, per_page: Int = 0) {
         _isLoading.value = true
-        val client= ApiClient.instances().getFollowsList(username, follows, per_page)
+        val client = ApiClient.instances().getFollowsList(username, follows, per_page)
 
-        client.enqueue(object : Callback<List<UsersModel>>{
+        client.enqueue(object : Callback<List<UsersModel>> {
             override fun onResponse(
                 call: Call<List<UsersModel>>,
                 response: Response<List<UsersModel>>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    when(follows){
+                    when (follows) {
                         "followers" -> _listFollowers.value = response.body() as List<UsersModel>
                         "following" -> _listFollowing.value = response.body() as List<UsersModel>
                     }
@@ -146,7 +148,7 @@ class UserViewModel : ViewModel() {
         })
     }
 
-    fun emptySearchField(){
+    fun emptySearchField() {
         _defaultList.value = defaultList.value
     }
 }
