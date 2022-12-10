@@ -56,8 +56,6 @@ class UserViewModel : ViewModel() {
 
                 if (response.isSuccessful) {
                     _defaultList.value = response.body() as List<UsersModel>
-                } else {
-                    _snackbarMsg.value = Event(response.message())
                 }
             }
 

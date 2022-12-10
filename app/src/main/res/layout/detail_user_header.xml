@@ -143,8 +143,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="@string/github_icon" />
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

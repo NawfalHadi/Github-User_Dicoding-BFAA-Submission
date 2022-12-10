@@ -15,6 +15,7 @@ import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.databinding.FragmentHomeBinding
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.UserAdapter
+import com.thatnawfal.githubuser.presentation.ui.setting.SettingFragment
 
 class HomeFragment : Fragment() {
 
@@ -40,13 +41,19 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.isLoading.observe(viewLifecycleOwner) {
-            binding.layoutHomeContent.pbLoadUsers.isVisible = it
+        binding.btnSettings.setOnClickListener {
+            showSettings()
         }
 
         errorSnackbar()
         refreshListUsers()
         searchFunction()
+    }
+
+    private fun showSettings() {
+        val currentDialog = parentFragmentManager.findFragmentByTag(SettingFragment::class.java.simpleName)
+        currentDialog ?: SettingFragment().show(parentFragmentManager, SettingFragment::class.java.simpleName)
+
     }
 
     private fun errorSnackbar() {
@@ -109,6 +116,7 @@ class HomeFragment : Fragment() {
 
     private fun refreshListUsers() {
         binding.layoutHomeContent.shimmerList.startShimmer()
+        binding.layoutHomeContent.shimmerListHorizontal.startShimmer()
 
         binding.layoutHomeContent.rvUserList.visibility = View.GONE
         viewModel.defaultList.observe(viewLifecycleOwner) {

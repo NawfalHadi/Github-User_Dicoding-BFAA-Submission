@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_splash_screen"
+    tools:ignore="contentDescription"
     tools:context=".presentation.ui.splashscreen.SplashScreenActivity">
 
     <View
@@ -33,7 +34,6 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="52sp"
-        android:fontFamily="sans-serif-black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -42,12 +42,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/image_github"
-                android:layout_marginEnd="16dp"
                 app:tint="@color/white"
                 app:backgroundTint="@color/black_80"
                 android:visibility="invisible"
                 android:contentDescription="@string/share_detail_layout"
-                app:layout_constraintBottom_toBottomOf="parent"
+
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@id/detailFb_toFavorite"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <ImageButton
@@ -61,6 +63,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:contentDescription="@string/back_button" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/detailFb_toFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_unfavorited"
+                app:backgroundTint="?attr/colorPrimary"
+                app:tint="@color/white"
+
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/follows_detail_user"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="ContentDescription" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

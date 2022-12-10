@@ -14,17 +14,23 @@ import coil.load
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.thatnawfal.githubuser.R
+import com.thatnawfal.githubuser.data.local.database.entity.FavoriteEntity
 import com.thatnawfal.githubuser.data.model.response.DetailUsersModel
 import com.thatnawfal.githubuser.databinding.FragmentDetailUserBinding
+import com.thatnawfal.githubuser.presentation.logic.FavoriteViewModel
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.HomeFragment
 import com.thatnawfal.githubuser.presentation.ui.profile.adapter.FollowsPagerAdapter
+import com.thatnawfal.githubuser.utils.viewModelFactory
 
 class DetailUserFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailUserBinding
 
     private val viewModel by viewModels<UserViewModel>()
+    private val favoriteViewModel by viewModelFactory {
+        FavoriteViewModel(activity?.application!!)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -106,6 +112,28 @@ class DetailUserFragment : Fragment() {
         FollowsFragment.username = dataUser.login
 
         with(binding) {
+
+            detailFbToFavorite.apply {
+                favoriteViewModel.checkFavorite(dataUser.id!!)
+                visibility = View.VISIBLE
+
+                favoriteViewModel.isFavorited.observe(viewLifecycleOwner){
+                    if (it){
+                        detailFbToFavorite.setImageResource(R.drawable.ic_favorited)
+                    } else {
+                        detailFbToFavorite.setImageResource(R.drawable.ic_unfavorited)
+                        setOnClickListener {
+                            val entity = FavoriteEntity(
+                                dataUser.id,
+                                dataUser.login!!,
+                                dataUser.avatarUrl,
+                                true
+                            )
+                            favoriteViewModel.addFavorite(entity)
+                        }
+                    }
+                }
+            }
             detailFbToGithub.apply {
                 visibility = View.VISIBLE
                 setOnClickListener {

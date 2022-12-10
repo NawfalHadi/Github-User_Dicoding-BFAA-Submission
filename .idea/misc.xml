@@ -25,13 +25,16 @@
         <entry key="app/src/main/res/layout/fragment_follows.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.35260416666666666" />
+        <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.33" />
         <entry key="app/src/main/res/layout/home_content.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/home_header.xml" value="0.3515625" />
-        <entry key="app/src/main/res/layout/item_list_user_horizontal.xml" value="0.35260416666666666" />
+        <entry key="app/src/main/res/layout/item_list_user_horizontal.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/item_list_user_horizontal_shimmer.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_list_user_shimmer.xml" value="0.30495495495495495" />
         <entry key="app/src/main/res/layout/item_list_user_vertical.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/layout/item_list_user_vertical_shimmer.xml" value="0.30495495495495495" />
         <entry key="app/src/main/res/layout/list_shimmer.xml" value="0.19945602901178605" />
+        <entry key="app/src/main/res/layout/list_shimmer_horizontal.xml" value="0.15495495495495495" />
         <entry key="app/src/main/res/layout/shimmer_detail_user.xml" value="0.3515625" />
       </map>
     </option>
