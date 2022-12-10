@@ -12,10 +12,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.thatnawfal.githubuser.R
+import com.thatnawfal.githubuser.data.local.database.entity.FavoriteEntity
 import com.thatnawfal.githubuser.databinding.FragmentHomeBinding
+import com.thatnawfal.githubuser.presentation.logic.FavoriteViewModel
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
+import com.thatnawfal.githubuser.presentation.ui.home.adapter.FavoriteAdapter
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.UserAdapter
 import com.thatnawfal.githubuser.presentation.ui.setting.SettingFragment
+import com.thatnawfal.githubuser.utils.viewModelFactory
 
 class HomeFragment : Fragment() {
 
@@ -24,11 +28,14 @@ class HomeFragment : Fragment() {
     }
 
     private val viewModel by viewModels<UserViewModel>()
+    private val favoriteViewModel by viewModelFactory {
+        FavoriteViewModel(activity?.application!!)
+    }
+
     private lateinit var binding: FragmentHomeBinding
 
-    private val adapter: UserAdapter by lazy {
-        UserAdapter()
-    }
+    private val adapter: UserAdapter by lazy { UserAdapter() }
+    private val favAdapter : FavoriteAdapter by lazy { FavoriteAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -114,6 +121,17 @@ class HomeFragment : Fragment() {
         })
     }
 
+    private fun initFavRecyclerView() {
+        with(binding.layoutHomeContent) {
+            rvFavoriteList.setHasFixedSize(true)
+            rvFavoriteList.layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.HORIZONTAL, false
+            )
+            rvFavoriteList.adapter = favAdapter
+        }
+    }
+
     private fun refreshListUsers() {
         binding.layoutHomeContent.shimmerList.startShimmer()
         binding.layoutHomeContent.shimmerListHorizontal.startShimmer()
@@ -140,7 +158,24 @@ class HomeFragment : Fragment() {
                 viewModel.loadUsers()
             }
         }
+
+        favoriteViewModel.getAllFavorites().observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()){
+                favAdapter.setItem(it as ArrayList<FavoriteEntity>)
+                initFavRecyclerView()
+
+                binding.layoutHomeContent.shimmerListHorizontal.stopShimmer()
+                binding.layoutHomeContent.shimmerListHorizontal.visibility = View.INVISIBLE
+                binding.layoutHomeContent.rvFavoriteList.visibility = View.VISIBLE
+            } else {
+                binding.layoutHomeContent.shimmerListHorizontal.stopShimmer()
+                binding.layoutHomeContent.shimmerListHorizontal.visibility = View.INVISIBLE
+                binding.layoutHomeContent.textNullFavoriteuser.visibility = View.VISIBLE
+            }
+        }
     }
+
+
 
     private fun showSelectedItem(username: String) {
         val mBundle = Bundle()

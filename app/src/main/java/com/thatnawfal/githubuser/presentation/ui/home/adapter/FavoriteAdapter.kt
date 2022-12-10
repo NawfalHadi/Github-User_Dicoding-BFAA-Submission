@@ -1,11 +1,14 @@
 package com.thatnawfal.githubuser.presentation.ui.home.adapter
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.thatnawfal.githubuser.data.local.database.entity.FavoriteEntity
 import com.thatnawfal.githubuser.databinding.ItemListUserHorizontalBinding
+import com.thatnawfal.githubuser.databinding.ItemListUserVerticalBinding
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
@@ -25,11 +28,15 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FavoriteAdapter.FavoriteViewHolder {
-        TODO("Not yet implemented")
+    ): FavoriteViewHolder {
+        val binding = ItemListUserHorizontalBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent, false
+        )
+        return FavoriteViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FavoriteAdapter.FavoriteViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
         val data = differ.currentList[position]
         holder.bindingView(data)
     }
@@ -41,7 +48,11 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
     ) : RecyclerView.ViewHolder(binding.root){
 
         fun bindingView(data: FavoriteEntity?) {
-            TODO("Not yet implemented")
+            with(binding){
+                itemIvUserHorizontalBg.load(data?.avatarUrl)
+                itemIvUserHorizontal.load(data?.avatarUrl)
+                itemTvNameHorizontal.text = data?.login
+            }
         }
 
 

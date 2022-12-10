@@ -105,6 +105,13 @@ class DetailUserFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun bindingView(dataUser: DetailUsersModel) {
+        val entity = FavoriteEntity(
+            dataUser.id!!,
+            dataUser.login!!,
+            dataUser.avatarUrl,
+            true
+        )
+
         val tabTitles = arrayOf(
             "(${dataUser.followers}) ${resources.getString(R.string.followers)}",
             "(${dataUser.following}) ${resources.getString(R.string.following)}"
@@ -114,21 +121,18 @@ class DetailUserFragment : Fragment() {
         with(binding) {
 
             detailFbToFavorite.apply {
-                favoriteViewModel.checkFavorite(dataUser.id!!)
+                favoriteViewModel.checkFavorite(dataUser.id)
                 visibility = View.VISIBLE
 
                 favoriteViewModel.isFavorited.observe(viewLifecycleOwner){
                     if (it){
                         detailFbToFavorite.setImageResource(R.drawable.ic_favorited)
+                        setOnClickListener {
+                            favoriteViewModel.removeFavorite(entity)
+                        }
                     } else {
                         detailFbToFavorite.setImageResource(R.drawable.ic_unfavorited)
                         setOnClickListener {
-                            val entity = FavoriteEntity(
-                                dataUser.id,
-                                dataUser.login!!,
-                                dataUser.avatarUrl,
-                                true
-                            )
                             favoriteViewModel.addFavorite(entity)
                         }
                     }
