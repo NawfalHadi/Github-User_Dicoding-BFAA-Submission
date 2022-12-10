@@ -129,11 +129,13 @@ class DetailUserFragment : Fragment() {
                         detailFbToFavorite.setImageResource(R.drawable.ic_favorited)
                         setOnClickListener {
                             favoriteViewModel.removeFavorite(entity)
+                            detailFbToFavorite.setImageResource(R.drawable.ic_unfavorited)
                         }
                     } else {
                         detailFbToFavorite.setImageResource(R.drawable.ic_unfavorited)
                         setOnClickListener {
                             favoriteViewModel.addFavorite(entity)
+                            detailFbToFavorite.setImageResource(R.drawable.ic_favorited)
                         }
                     }
                 }
