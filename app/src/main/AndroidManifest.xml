@@ -4,6 +4,8 @@
     package="com.thatnawfal.githubuser">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -16,9 +18,9 @@
         android:theme="@style/Theme.GithubUser"
         tools:targetApi="31">
         <receiver
-            android:name=".AlarmManager"
+            android:name=".data.local.manager.AlarmManager"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="false"/>
 
         <activity
             android:name=".presentation.ui.MainActivity"

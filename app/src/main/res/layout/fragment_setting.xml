@@ -76,7 +76,8 @@
 
             app:layout_constraintTop_toTopOf="@id/text_alarm"
             app:layout_constraintBottom_toBottomOf="@id/text_alarm"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tv_alarm"
