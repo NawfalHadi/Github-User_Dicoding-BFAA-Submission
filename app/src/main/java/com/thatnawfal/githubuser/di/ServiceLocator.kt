@@ -2,6 +2,7 @@ package com.thatnawfal.githubuser.di
 
 import android.content.Context
 import com.thatnawfal.githubuser.data.local.database.AppDatabase
+import com.thatnawfal.githubuser.data.local.datastore.SettingPreference
 import com.thatnawfal.githubuser.data.network.service.ApiClient
 import com.thatnawfal.githubuser.data.network.service.ApiService
 import com.thatnawfal.githubuser.data.repository.FavoriteRepository
@@ -15,6 +16,10 @@ object ServiceLocator {
 
     private fun provideApiService(): ApiService {
         return ApiClient.instances()
+    }
+
+    fun provideSettingPreferences(ctx: Context): SettingPreference {
+        return SettingPreference(ctx)
     }
 
     fun provideFavoriteRepository(ctx: Context): FavoriteRepository {

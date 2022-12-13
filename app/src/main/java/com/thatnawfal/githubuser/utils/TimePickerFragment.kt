@@ -1,4 +1,4 @@
-package com.thatnawfal.alarmdicoding
+package com.thatnawfal.githubuser.utils
 
 import android.app.Dialog
 import android.app.TimePickerDialog

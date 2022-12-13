@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_homeFragment_to_detailUserFragment"
             app:destination="@id/detailUserFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingActivity"
+            app:destination="@id/settingActivity" />
     </fragment>
     <fragment
         android:id="@+id/detailUserFragment"
         android:name="com.thatnawfal.githubuser.presentation.ui.profile.DetailUserFragment"
         android:label="fragment_detail_user"
         tools:layout="@layout/fragment_detail_user" />
+    <activity
+        android:id="@+id/settingActivity"
+        android:name="com.thatnawfal.githubuser.presentation.ui.setting.SettingActivity"
+        android:label="activity_setting"
+        tools:layout="@layout/activity_setting" />
 </navigation>

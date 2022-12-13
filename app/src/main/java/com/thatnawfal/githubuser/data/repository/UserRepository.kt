@@ -1,4 +1,8 @@
 package com.thatnawfal.githubuser.data.repository
 
-class UserRepository {
+import com.thatnawfal.githubuser.data.network.service.ApiService
+
+class UserRepository(
+    apiService: ApiService
+) {
 }

@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.thatnawfal.githubuser.utils.TimePickerFragment
 import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.data.local.database.entity.FavoriteEntity
 import com.thatnawfal.githubuser.databinding.FragmentHomeBinding
@@ -19,10 +19,11 @@ import com.thatnawfal.githubuser.presentation.logic.FavoriteViewModel
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.FavoriteAdapter
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.UserAdapter
-import com.thatnawfal.githubuser.presentation.ui.setting.SettingFragment
 import com.thatnawfal.githubuser.utils.viewModelFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), TimePickerFragment.DialogTimeListener {
 
     companion object {
         const val EXTRA_KEY = "extra_key"
@@ -50,18 +51,12 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnSettings.setOnClickListener {
-            showSettings()
+            findNavController().navigate(R.id.action_homeFragment_to_settingActivity)
         }
 
         errorSnackbar()
         refreshListUsers()
         searchFunction()
-    }
-
-    private fun showSettings() {
-        val currentDialog = parentFragmentManager.findFragmentByTag(SettingFragment::class.java.simpleName)
-        currentDialog ?: SettingFragment().show(parentFragmentManager, SettingFragment::class.java.simpleName)
-
     }
 
     private fun errorSnackbar() {
@@ -182,6 +177,14 @@ class HomeFragment : Fragment() {
         val mBundle = Bundle()
         mBundle.putString(EXTRA_KEY, username)
         findNavController().navigate(R.id.action_homeFragment_to_detailUserFragment, mBundle)
+    }
+
+    override fun onDialogTimeSet(tag: String?, hourOfDay: Int, minute: Int) {
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        calendar.set(Calendar.MINUTE, minute)
+
+        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
     }
 
 }

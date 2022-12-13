@@ -17,10 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser"
         tools:targetApi="31">
+        <activity
+            android:name=".presentation.ui.setting.SettingActivity"
+            android:exported="false" />
         <receiver
-            android:name=".data.local.manager.AlarmManager"
+            android:name=".utils.AlarmReceiver"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".presentation.ui.MainActivity"
