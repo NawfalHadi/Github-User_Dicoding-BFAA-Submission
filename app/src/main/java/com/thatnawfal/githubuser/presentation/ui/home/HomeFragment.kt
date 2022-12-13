@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.data.local.database.entity.FavoriteEntity
 import com.thatnawfal.githubuser.databinding.FragmentHomeBinding
+import com.thatnawfal.githubuser.di.ServiceLocator
 import com.thatnawfal.githubuser.presentation.logic.FavoriteViewModel
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.FavoriteAdapter
@@ -29,7 +30,7 @@ class HomeFragment : Fragment() {
 
     private val viewModel by viewModels<UserViewModel>()
     private val favoriteViewModel by viewModelFactory {
-        FavoriteViewModel(activity?.application!!)
+        FavoriteViewModel(ServiceLocator.provideFavoriteRepository(requireContext()))
     }
 
     private lateinit var binding: FragmentHomeBinding

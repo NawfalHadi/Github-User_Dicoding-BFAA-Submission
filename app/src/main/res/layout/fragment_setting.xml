@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="@string/text_dark"
             android:textSize="16sp"
-            android:textColor="@color/black_80"
+            android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
 
             app:layout_constraintTop_toTopOf="@id/switch_theme"
@@ -46,11 +46,58 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <View
+            android:id="@+id/guideline_darkmode"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/gray_80"
 
             app:layout_constraintTop_toBottomOf="@id/switch_theme"/>
+
+        <TextView
+            android:id="@+id/text_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_alarm"
+            android:textSize="16sp"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold"
+
+            android:layout_marginTop="18dp"
+            app:layout_constraintStart_toStartOf="@id/text_theme"
+            app:layout_constraintTop_toBottomOf="@id/guideline_darkmode"/>
+
+        <ImageButton
+            android:id="@+id/btn_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow"
+            app:tint="?attr/colorPrimary"
+            android:backgroundTint="@color/transparant"
+
+            app:layout_constraintTop_toTopOf="@id/text_alarm"
+            app:layout_constraintBottom_toBottomOf="@id/text_alarm"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_dummy_times"
+            android:textSize="16sp"
+
+            app:layout_constraintTop_toTopOf="@id/text_alarm"
+            app:layout_constraintBottom_toBottomOf="@id/text_alarm"
+            app:layout_constraintEnd_toStartOf="@id/btn_edit"/>
+
+        <View
+            android:id="@+id/guideline_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_80"
+
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_alarm"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

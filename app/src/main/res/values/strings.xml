@@ -38,4 +38,6 @@
     <string name="text_favorite_users">Favorite Users</string>
     <string name="text_more_users">More Users</string>
     <string name="text_null_favoriteuser">There\'s No Favorite User\nClick ♡ To Add User In Favorites</string>
+    <string name="text_alarm">Alarm</string>
+    <string name="text_dummy_times">18:00</string>
 </resources>

@@ -12,8 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.math.log
 
-class FavoriteViewModel(application: Application): ViewModel() {
-    private val mFavRepository: FavoriteRepository = FavoriteRepository(application)
+class FavoriteViewModel(private val mFavRepository: FavoriteRepository ): ViewModel() {
 
     private val _isFavorited = MutableLiveData<Boolean>()
     val isFavorited : LiveData<Boolean> = _isFavorited

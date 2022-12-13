@@ -17,6 +17,7 @@ import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.data.local.database.entity.FavoriteEntity
 import com.thatnawfal.githubuser.data.model.response.DetailUsersModel
 import com.thatnawfal.githubuser.databinding.FragmentDetailUserBinding
+import com.thatnawfal.githubuser.di.ServiceLocator
 import com.thatnawfal.githubuser.presentation.logic.FavoriteViewModel
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.HomeFragment
@@ -29,7 +30,7 @@ class DetailUserFragment : Fragment() {
 
     private val viewModel by viewModels<UserViewModel>()
     private val favoriteViewModel by viewModelFactory {
-        FavoriteViewModel(activity?.application!!)
+        FavoriteViewModel(ServiceLocator.provideFavoriteRepository(requireContext()))
     }
 
     override fun onCreateView(
@@ -125,17 +126,20 @@ class DetailUserFragment : Fragment() {
                 visibility = View.VISIBLE
 
                 favoriteViewModel.isFavorited.observe(viewLifecycleOwner){
+                    detailFbToFavorite.isClickable = true
                     if (it){
                         detailFbToFavorite.setImageResource(R.drawable.ic_favorited)
                         setOnClickListener {
                             favoriteViewModel.removeFavorite(entity)
-                            detailFbToFavorite.setImageResource(R.drawable.ic_unfavorited)
+                            detailFbToFavorite.isClickable = false
+                            favoriteViewModel.checkFavorite(dataUser.id)
                         }
                     } else {
                         detailFbToFavorite.setImageResource(R.drawable.ic_unfavorited)
                         setOnClickListener {
                             favoriteViewModel.addFavorite(entity)
-                            detailFbToFavorite.setImageResource(R.drawable.ic_favorited)
+                            detailFbToFavorite.isClickable = false
+                            favoriteViewModel.checkFavorite(dataUser.id)
                         }
                     }
                 }

@@ -8,34 +8,30 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    companion object {
-        const val tokens = "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"
-    }
-
     @GET("/users?")
+    @Headers("Authorization: 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")
     fun getUsers(
         @Query("per_page") per_page: Int,
-        @Header("Authorization") token: String = tokens
     ): Call<List<UsersModel>>
 
     @GET("/search/users?")
+    @Headers("Authorization: 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")
     fun searchUsers(
         @Query("q") q: String,
         @Query("per_page") per_page: Int,
-        @Header("Authorization") token: String = tokens
     ): Call<SearchResponse>
 
     @GET("users/{username}")
+    @Headers("Authorization: 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")
     fun getDetailUser(
         @Path("username") username: String,
-        @Header("Authorization") token: String = tokens
     ): Call<DetailUsersModel>
 
     @GET("users/{username}/{follow}?")
+    @Headers("Authorization: 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")
     fun getFollowsList(
         @Path("username") username: String,
         @Path("follow") follow: String,
         @Query("per_page") per_page: Int,
-        @Header("Authorization") token: String = tokens
     ): Call<List<UsersModel>>
 }

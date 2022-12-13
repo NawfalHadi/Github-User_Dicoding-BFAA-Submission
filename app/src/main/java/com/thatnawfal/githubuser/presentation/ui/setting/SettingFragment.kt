@@ -8,15 +8,19 @@ import android.view.ViewGroup
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.thatnawfal.githubuser.R
+import com.thatnawfal.githubuser.databinding.FragmentSettingBinding
 
 class SettingFragment : BottomSheetDialogFragment() {
+
+    private lateinit var binding : FragmentSettingBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false)
+        binding = FragmentSettingBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
