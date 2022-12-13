@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.thatnawfal.githubuser.utils.TimePickerFragment
 import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.data.local.database.entity.FavoriteEntity
 import com.thatnawfal.githubuser.databinding.FragmentHomeBinding
@@ -19,6 +18,7 @@ import com.thatnawfal.githubuser.presentation.logic.FavoriteViewModel
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.FavoriteAdapter
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.UserAdapter
+import com.thatnawfal.githubuser.utils.TimePickerFragment
 import com.thatnawfal.githubuser.utils.viewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
@@ -78,7 +78,7 @@ class HomeFragment : Fragment(), TimePickerFragment.DialogTimeListener {
             searchHomeHeader.setIconifiedByDefault(false)
             searchHomeHeader.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    viewModel.searchUsers(query ?: "")
+                    viewModel.searchUsers(query ?: "", 10)
                     binding.layoutHomeContent.rvUserList.visibility = View.GONE
                     binding.layoutHomeContent.shimmerList.visibility = View.VISIBLE
                     binding.layoutHomeContent.shimmerList.startShimmer()
@@ -126,6 +126,16 @@ class HomeFragment : Fragment(), TimePickerFragment.DialogTimeListener {
             )
             rvFavoriteList.adapter = favAdapter
         }
+
+        favAdapter.itemClicked(object : FavoriteAdapter.OnFavItemClickedCallback {
+            override fun itemClicked(username: String) {
+                showSelectedItem(username)
+            }
+
+            override fun itemRemoved(data: FavoriteEntity?) {
+                favoriteViewModel.removeFavorite(data!!)
+            }
+        })
     }
 
     private fun refreshListUsers() {

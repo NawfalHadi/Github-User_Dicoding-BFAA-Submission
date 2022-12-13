@@ -127,19 +127,18 @@ class DetailUserFragment : Fragment() {
 
                 favoriteViewModel.isFavorited.observe(viewLifecycleOwner){
                     detailFbToFavorite.isClickable = true
-                    if (it){
-                        detailFbToFavorite.setImageResource(R.drawable.ic_favorited)
-                        setOnClickListener {
+                    detailFbToFavorite.setOnClickListener{ _ ->
+                        if (it){
+                            detailFbToFavorite.setImageResource(R.drawable.ic_favorited)
                             favoriteViewModel.removeFavorite(entity)
                             detailFbToFavorite.isClickable = false
                             favoriteViewModel.checkFavorite(dataUser.id)
-                        }
-                    } else {
-                        detailFbToFavorite.setImageResource(R.drawable.ic_unfavorited)
-                        setOnClickListener {
+                        } else {
+                            detailFbToFavorite.setImageResource(R.drawable.ic_unfavorited)
                             favoriteViewModel.addFavorite(entity)
                             detailFbToFavorite.isClickable = false
                             favoriteViewModel.checkFavorite(dataUser.id)
+
                         }
                     }
                 }

@@ -10,9 +10,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.databinding.FragmentFollowsBinding
+import com.thatnawfal.githubuser.di.ServiceLocator
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.HomeFragment
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.UserAdapter
+import com.thatnawfal.githubuser.utils.viewModelFactory
 
 class FollowsFragment : Fragment() {
 

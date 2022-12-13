@@ -38,16 +38,18 @@ class SettingActivity : AppCompatActivity() {
     }
 
     private fun themeChecker() {
-        binding.switchTheme.setOnCheckedChangeListener { _ , isChecked ->
+        settingViewModel.getThemes().observe(this){ isChecked ->
             if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 binding.switchTheme.isChecked = true
-                settingViewModel.setThemes(true)
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 binding.switchTheme.isChecked = false
-                settingViewModel.setThemes(false)
             }
+        }
+
+        binding.switchTheme.setOnCheckedChangeListener { _ , isChecked ->
+            settingViewModel.setThemes(isChecked)
         }
     }
 }
