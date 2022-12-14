@@ -120,6 +120,7 @@
             android:elevation="9dp"
             android:textColor="@color/white"
             style="@style/boldText"
+            android:layout_marginStart="12dp"
             app:layout_constraintStart_toEndOf="@id/_cardImage"
             app:layout_constraintTop_toTopOf="@id/_cardImage"/>
 

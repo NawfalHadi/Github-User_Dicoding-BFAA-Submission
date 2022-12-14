@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:background="@color/gray_80"
         style="@style/boldText"
+        android:layout_marginStart="12dp"
         android:textSize="32sp"
         app:layout_constraintTop_toTopOf="@id/itemIv_user_vertical"
         app:layout_constraintStart_toEndOf="@id/itemIv_user_vertical"/>
