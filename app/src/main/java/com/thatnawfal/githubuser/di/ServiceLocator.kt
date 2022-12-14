@@ -14,10 +14,6 @@ object ServiceLocator {
         return AppDatabase.getInstance(ctx)
     }
 
-    private fun provideApiService(): ApiService {
-        return ApiClient.instances()
-    }
-
     fun provideSettingPreferences(ctx: Context): SettingPreference {
         return SettingPreference(ctx)
     }
