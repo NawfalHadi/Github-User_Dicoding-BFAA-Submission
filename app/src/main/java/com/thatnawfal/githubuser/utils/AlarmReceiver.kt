@@ -10,9 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.thatnawfal.githubuser.R
@@ -23,15 +21,10 @@ import java.util.*
 class AlarmReceiver : BroadcastReceiver() {
 
     companion object {
-        const val TYPE_ONE_TIME = "OneTimeAlarm"
-        const val TYPE_REPEATING = "RepeatingAlarm"
         const val EXTRA_MESSAGE = "message"
-        const val EXTRA_TYPE = "type"
-        // Siapkan 2 id untuk 2 macam alarm, onetime dan repeating
-        private const val ID_ONETIME = 100
+
         private const val ID_REPEATING = 101
 
-        private const val DATE_FORMAT = "yyyy-MM-dd"
         private const val TIME_FORMAT = "HH:mm"
     }
 
@@ -44,9 +37,9 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     @SuppressLint("InlinedApi")
-    fun setRepeatingAlarm(context: Context, type: String, time: String, message: String){
+    fun setRepeatingAlarm(context: Context, time: String, message: String){
 
-        if (isDateInvalid(time, TIME_FORMAT)) return
+        if (isDateInvalid(time)) return
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
@@ -100,9 +93,9 @@ class AlarmReceiver : BroadcastReceiver() {
         notificationManagerCompat.notify(ID_REPEATING, notification)
     }
 
-    private fun isDateInvalid(date: String, format: String): Boolean {
+    private fun isDateInvalid(date: String): Boolean {
         return try {
-            val df = SimpleDateFormat(format, Locale.getDefault())
+            val df = SimpleDateFormat(TIME_FORMAT, Locale.getDefault())
             df.isLenient = false
             df.parse(date)
             false

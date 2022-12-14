@@ -3,8 +3,6 @@ package com.thatnawfal.githubuser.di
 import android.content.Context
 import com.thatnawfal.githubuser.data.local.database.AppDatabase
 import com.thatnawfal.githubuser.data.local.datastore.SettingPreference
-import com.thatnawfal.githubuser.data.network.service.ApiClient
-import com.thatnawfal.githubuser.data.network.service.ApiService
 import com.thatnawfal.githubuser.data.repository.FavoriteRepository
 import com.thatnawfal.githubuser.utils.AppExecutors
 

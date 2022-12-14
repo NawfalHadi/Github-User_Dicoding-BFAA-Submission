@@ -14,10 +14,6 @@ import com.thatnawfal.githubuser.utils.viewModelFactory
 
 class SettingFragment : Fragment() {
 
-    companion object {
-        private const val TIME_PICKER_REPEAT_TAG = "TimePickerRepeat"
-    }
-
     private lateinit var binding : FragmentSettingBinding
     private val settingViewModel by viewModelFactory {
         SettingsViewModel(ServiceLocator.provideSettingPreferences(requireContext()))
@@ -55,5 +51,9 @@ class SettingFragment : Fragment() {
                 settingViewModel.setThemes(false)
             }
         }
+    }
+
+    companion object {
+        private const val TIME_PICKER_REPEAT_TAG = "TimePickerRepeat"
     }
 }

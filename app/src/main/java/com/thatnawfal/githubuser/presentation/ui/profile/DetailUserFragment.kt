@@ -121,9 +121,9 @@ class DetailUserFragment : Fragment() {
 
         with(binding) {
 
+            layoutFab.visibility = View.VISIBLE
             detailFbToFavorite.apply {
                 favoriteViewModel.checkFavorite(dataUser.id)
-                visibility = View.VISIBLE
 
                 favoriteViewModel.isFavorited.observe(viewLifecycleOwner){
                     detailFbToFavorite.isClickable = true
@@ -143,12 +143,10 @@ class DetailUserFragment : Fragment() {
                     }
                 }
             }
-            detailFbToGithub.apply {
-                visibility = View.VISIBLE
-                setOnClickListener {
+
+            detailFbToGithub.setOnClickListener {
                     openGithubInBrowser(dataUser.login)
                 }
-            }
 
             with(followsDetailUser) {
                 viewpagerFollows.adapter = parentFragment?.let { FollowsPagerAdapter(it) }

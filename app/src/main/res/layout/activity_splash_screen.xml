@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/image_github"
         android:alpha="0.20"
+        android:contentDescription="@string/backdrop_github_logo"
         app:layout_constraintStart_toStartOf="@id/view_center"
         app:layout_constraintTop_toTopOf="@id/view_center"
         app:layout_constraintBottom_toBottomOf="@id/view_center" />

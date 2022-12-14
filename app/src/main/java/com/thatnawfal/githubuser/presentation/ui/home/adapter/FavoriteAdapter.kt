@@ -26,10 +26,6 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
         this.onFavItemClickedCallback = onItemClickedCallback
     }
 
-    fun itemRemoved(onFavItemClickedCallback: OnFavItemClickedCallback) {
-        this.onFavItemClickedCallback = onFavItemClickedCallback
-    }
-
     private val differ = AsyncListDiffer(this, diffCallback)
     fun setItem(value : ArrayList<FavoriteEntity>) = differ.submitList(value)
 

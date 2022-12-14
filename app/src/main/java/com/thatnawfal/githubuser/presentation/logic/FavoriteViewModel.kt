@@ -1,6 +1,5 @@
 package com.thatnawfal.githubuser.presentation.logic
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +9,6 @@ import com.thatnawfal.githubuser.data.repository.FavoriteRepository
 import com.thatnawfal.githubuser.wrapper.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 class FavoriteViewModel(private val mFavRepository: FavoriteRepository ): ViewModel() {
 
@@ -40,4 +38,5 @@ class FavoriteViewModel(private val mFavRepository: FavoriteRepository ): ViewMo
     }
 
     fun getAllFavorites(): LiveData<List<FavoriteEntity>> = mFavRepository.getAllFavorites()
+    fun getSomeFavorites(): LiveData<List<FavoriteEntity>> = mFavRepository.getSomeFavorite()
 }

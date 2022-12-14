@@ -37,22 +37,6 @@
                 android:layout_height="wrap_content"
                 layout="@layout/detail_user_header" />
 
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/detailFb_toGithub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/image_github"
-                app:tint="@color/white"
-                app:backgroundTint="@color/black_80"
-                android:visibility="invisible"
-                android:contentDescription="@string/share_detail_layout"
-
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/detailFb_toFavorite"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
             <ImageButton
                 android:id="@+id/back_button_detail"
                 android:layout_width="wrap_content"
@@ -65,23 +49,42 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:contentDescription="@string/back_button" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/detailFb_toFavorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_unfavorited"
-                app:backgroundTint="?attr/colorPrimary"
-                app:tint="@color/white"
-
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/follows_detail_user"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:ignore="ContentDescription" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/layout_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        android:visibility="gone"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|end">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/detailFb_toGithub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_github"
+            app:tint="@color/white"
+            app:backgroundTint="@color/black_80"
+            android:visibility="visible"
+            android:contentDescription="@string/share_detail_layout"
+
+            android:layout_marginBottom="12dp"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/detailFb_toFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_unfavorited"
+            app:backgroundTint="?attr/colorPrimary"
+
+            app:tint="@color/white"
+            android:visibility="visible"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
 
 </FrameLayout>

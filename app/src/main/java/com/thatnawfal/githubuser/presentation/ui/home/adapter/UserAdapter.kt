@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.thatnawfal.githubuser.R
+import com.thatnawfal.githubuser.data.local.database.entity.FavoriteEntity
 import com.thatnawfal.githubuser.data.model.response.UsersModel
 import com.thatnawfal.githubuser.databinding.ItemListUserVerticalBinding
 
@@ -52,11 +53,35 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                 itemViewgroupVertical.setOnClickListener {
                     onItemClickedCallback.itemClicked(item.login!!)
                 }
+
+//                if (onItemClickedCallback.checkFavorited(item.id)){
+//                    itemBtnFavoriteVertical.setImageResource(R.drawable.ic_unfavorited)
+//                } else {
+//                    itemBtnFavoriteVertical.setImageResource(R.drawable.ic_favorited)
+//                }
+
+                itemBtnFavoriteVertical.setOnClickListener {
+                    val entity = FavoriteEntity(
+                        item.id!!, item.login!!, item.avatarUrl!!, true
+                    )
+
+                    if (onItemClickedCallback.checkFavorited(item.id)){
+                        itemBtnFavoriteVertical.setImageResource(R.drawable.ic_unfavorited)
+                        onItemClickedCallback.itemFavorited(entity)
+                    } else {
+                        itemBtnFavoriteVertical.setImageResource(R.drawable.ic_favorited)
+                        onItemClickedCallback.itemUnfavorited(entity)
+                    }
+
+                }
             }
         }
     }
 
     interface OnItemClickedCallback {
         fun itemClicked(username: String)
+        fun itemFavorited(entity: FavoriteEntity)
+        fun itemUnfavorited(entity: FavoriteEntity)
+        fun checkFavorited(id: Int?): Boolean
     }
 }

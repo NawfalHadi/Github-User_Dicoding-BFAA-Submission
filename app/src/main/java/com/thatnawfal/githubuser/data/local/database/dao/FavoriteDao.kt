@@ -18,6 +18,9 @@ interface FavoriteDao {
     @Query("SELECT * FROM favoriteentity ORDER BY id ASC")
     fun getAllFavorite(): LiveData<List<FavoriteEntity>>
 
+    @Query("SELECT * FROM favoriteentity ORDER BY id ASC LIMIT 6")
+    fun getSomeFavorite(): LiveData<List<FavoriteEntity>>
+
     @Query("SELECT COUNT() FROM favoriteentity WHERE id = :id")
     fun isFavorited(id: Int): Int
 }

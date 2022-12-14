@@ -3,7 +3,6 @@ package com.thatnawfal.githubuser.presentation.logic
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.thatnawfal.githubuser.data.local.database.entity.FavoriteEntity
 import com.thatnawfal.githubuser.data.model.response.DetailUsersModel
 import com.thatnawfal.githubuser.data.model.response.SearchResponse
 import com.thatnawfal.githubuser.data.model.response.UsersModel
@@ -14,10 +13,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class UserViewModel : ViewModel() {
-
-    companion object {
-        const val TAG = "UserViewModel : "
-    }
 
     private val _defaultList = MutableLiveData<List<UsersModel>>()
     val defaultList: LiveData<List<UsersModel>> = _defaultList

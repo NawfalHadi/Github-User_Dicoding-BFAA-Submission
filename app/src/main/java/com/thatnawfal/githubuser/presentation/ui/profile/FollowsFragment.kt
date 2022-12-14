@@ -8,9 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.thatnawfal.githubuser.R
+import com.thatnawfal.githubuser.data.local.database.entity.FavoriteEntity
+import com.thatnawfal.githubuser.data.model.response.UsersModel
 import com.thatnawfal.githubuser.databinding.FragmentFollowsBinding
 import com.thatnawfal.githubuser.di.ServiceLocator
+import com.thatnawfal.githubuser.presentation.logic.FavoriteViewModel
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.HomeFragment
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.UserAdapter
@@ -18,13 +22,13 @@ import com.thatnawfal.githubuser.utils.viewModelFactory
 
 class FollowsFragment : Fragment() {
 
-    companion object {
-        var username: String? = ""
-        const val SECTION_TABS = "section_tabs"
+    private lateinit var binding: FragmentFollowsBinding
+
+    private val viewModel by viewModels<UserViewModel>()
+    private val favoriteViewModel by viewModelFactory {
+        FavoriteViewModel(ServiceLocator.provideFavoriteRepository(requireContext()))
     }
 
-    private lateinit var binding: FragmentFollowsBinding
-    private val viewModel by viewModels<UserViewModel>()
     private val adapter: UserAdapter by lazy { UserAdapter() }
 
     override fun onCreateView(
@@ -88,6 +92,23 @@ class FollowsFragment : Fragment() {
             override fun itemClicked(username: String) {
                 showSelectedItem(username)
             }
+
+            override fun itemFavorited(entity: FavoriteEntity) {
+                favoriteViewModel.addFavorite(entity)
+            }
+
+            override fun itemUnfavorited(entity: FavoriteEntity) {
+                favoriteViewModel.removeFavorite(entity)
+            }
+
+            override fun checkFavorited(id: Int?): Boolean {
+                favoriteViewModel.checkFavorite(id!!)
+                var bool = false
+                favoriteViewModel.isFavorited.observe(viewLifecycleOwner){
+                    bool = it
+                }
+                return bool
+            }
         })
     }
 
@@ -97,5 +118,10 @@ class FollowsFragment : Fragment() {
         val mBundle = Bundle()
         mBundle.putString(HomeFragment.EXTRA_KEY, username)
         findNavController().navigate(R.id.action_homeFragment_to_detailUserFragment, mBundle)
+    }
+
+    companion object {
+        var username: String? = ""
+        const val SECTION_TABS = "section_tabs"
     }
 }

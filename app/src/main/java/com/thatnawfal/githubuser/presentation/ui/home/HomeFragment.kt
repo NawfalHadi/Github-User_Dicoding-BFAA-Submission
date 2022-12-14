@@ -20,14 +20,9 @@ import com.thatnawfal.githubuser.presentation.ui.home.adapter.FavoriteAdapter
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.UserAdapter
 import com.thatnawfal.githubuser.utils.TimePickerFragment
 import com.thatnawfal.githubuser.utils.viewModelFactory
-import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeFragment : Fragment(), TimePickerFragment.DialogTimeListener {
-
-    companion object {
-        const val EXTRA_KEY = "extra_key"
-    }
 
     private val viewModel by viewModels<UserViewModel>()
     private val favoriteViewModel by viewModelFactory {
@@ -114,6 +109,23 @@ class HomeFragment : Fragment(), TimePickerFragment.DialogTimeListener {
             override fun itemClicked(username: String) {
                 showSelectedItem(username)
             }
+
+            override fun itemFavorited(entity: FavoriteEntity) {
+                favoriteViewModel.addFavorite(entity)
+            }
+
+            override fun itemUnfavorited(entity: FavoriteEntity) {
+                favoriteViewModel.removeFavorite(entity)
+            }
+
+            override fun checkFavorited(id: Int?): Boolean {
+                favoriteViewModel.checkFavorite(id!!)
+                var bool = false
+                favoriteViewModel.isFavorited.observe(viewLifecycleOwner){
+                   bool = it
+                }
+                return bool
+            }
         })
     }
 
@@ -165,17 +177,18 @@ class HomeFragment : Fragment(), TimePickerFragment.DialogTimeListener {
             }
         }
 
-        favoriteViewModel.getAllFavorites().observe(viewLifecycleOwner) {
+        favoriteViewModel.getSomeFavorites().observe(viewLifecycleOwner) {
+            binding.layoutHomeContent.shimmerListHorizontal.stopShimmer()
             if (it.isNotEmpty()){
                 favAdapter.setItem(it as ArrayList<FavoriteEntity>)
                 initFavRecyclerView()
 
-                binding.layoutHomeContent.shimmerListHorizontal.stopShimmer()
                 binding.layoutHomeContent.shimmerListHorizontal.visibility = View.INVISIBLE
                 binding.layoutHomeContent.rvFavoriteList.visibility = View.VISIBLE
+                binding.layoutHomeContent.textNullFavoriteuser.visibility = View.INVISIBLE
             } else {
-                binding.layoutHomeContent.shimmerListHorizontal.stopShimmer()
                 binding.layoutHomeContent.shimmerListHorizontal.visibility = View.INVISIBLE
+                binding.layoutHomeContent.rvFavoriteList.visibility = View.INVISIBLE
                 binding.layoutHomeContent.textNullFavoriteuser.visibility = View.VISIBLE
             }
         }
@@ -193,8 +206,10 @@ class HomeFragment : Fragment(), TimePickerFragment.DialogTimeListener {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
         calendar.set(Calendar.MINUTE, minute)
+    }
 
-        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+    companion object {
+        const val EXTRA_KEY = "extra_key"
     }
 
 }

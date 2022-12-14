@@ -1,27 +1,20 @@
 package com.thatnawfal.githubuser.presentation.ui.setting
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.databinding.ActivitySettingBinding
-import com.thatnawfal.githubuser.databinding.FragmentSettingBinding
 import com.thatnawfal.githubuser.di.ServiceLocator
 import com.thatnawfal.githubuser.presentation.logic.SettingsViewModel
 import com.thatnawfal.githubuser.utils.AlarmReceiver
-import com.thatnawfal.githubuser.utils.DatePickerFragment
 import com.thatnawfal.githubuser.utils.TimePickerFragment
 import com.thatnawfal.githubuser.utils.viewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
 class SettingActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListener {
-
-    companion object {
-        private const val TIME_PICKER_REPEAT_TAG = "TimePickerRepeat"
-    }
 
     private lateinit var oldTimes: String
     private lateinit var alarmReceiver: AlarmReceiver
@@ -48,7 +41,7 @@ class SettingActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListen
         settingViewModel.getAlarm().observe(this){
             binding.tvAlarm.text = it
             if (it == "00"){
-                alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_REPEATING,
+                alarmReceiver.setRepeatingAlarm(this,
                     "06:00", "Submission Reminder")
                 binding.tvAlarm.text = "06:00"
                 settingViewModel.setAlarm("06:00")
@@ -62,7 +55,7 @@ class SettingActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListen
         if (oldTimes != times) {
             binding.btnChange.visibility = View.VISIBLE
             binding.btnChange.setOnClickListener {
-                alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_REPEATING,
+                alarmReceiver.setRepeatingAlarm(this,
                     times, "Submission Reminder")
 
                 binding.btnChange.visibility = View.GONE
@@ -102,5 +95,9 @@ class SettingActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListen
             }
             else -> {}
         }
+    }
+
+    companion object {
+        private const val TIME_PICKER_REPEAT_TAG = "TimePickerRepeat"
     }
 }

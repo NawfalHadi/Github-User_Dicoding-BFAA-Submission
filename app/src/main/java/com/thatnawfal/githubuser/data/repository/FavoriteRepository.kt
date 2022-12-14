@@ -11,6 +11,8 @@ class FavoriteRepository(
 ) {
     fun getAllFavorites(): LiveData<List<FavoriteEntity>> = mFavDao.getAllFavorite()
 
+    fun getSomeFavorite(): LiveData<List<FavoriteEntity>> = mFavDao.getSomeFavorite()
+
     fun addFavorite(favorite: FavoriteEntity) {
         executorService.diskIO.execute { mFavDao.addFavorite(favorite) }
     }

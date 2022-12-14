@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow"
-            app:tint="?attr/colorPrimary"
+            style="@style/tintColor"
             android:backgroundTint="@color/transparant"
 
             app:layout_constraintTop_toTopOf="@id/text_alarm"

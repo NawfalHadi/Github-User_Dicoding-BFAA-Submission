@@ -19,4 +19,8 @@
         <item name="android:maxLines">1</item>
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
+
+    <style name="tintColor">
+        <item name="tint">?attr/colorPrimary</item>
+    </style>
 </resources>

@@ -1,5 +1,6 @@
 package com.thatnawfal.githubuser.data.network.service
 
+import com.thatnawfal.githubuser.BuildConfig
 import com.thatnawfal.githubuser.utils.Helper
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,8 +10,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ApiClient {
     companion object {
         fun instances(): ApiService {
-            val loggingInterceptor =
+            val loggingInterceptor = if(BuildConfig.DEBUG) {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            } else {
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+            }
 
             val client = OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
