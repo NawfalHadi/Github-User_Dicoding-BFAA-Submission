@@ -31,6 +31,12 @@ class SettingPreference(private val ctx : Context){
         }
     }
 
+    fun getAlarm() : Flow<String>{
+        return ctx.settingDataStore.data.map {
+            it[alarm] ?: "18:00"
+        }
+    }
+
     companion object {
         private const val DATASTORE_NAME = "settong_preference"
 

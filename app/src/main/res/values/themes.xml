@@ -16,7 +16,6 @@
     <style name="boldText">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">32sp</item>
-        <item name="android:layout_marginLeft">8dp</item>
         <item name="android:maxLines">1</item>
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>

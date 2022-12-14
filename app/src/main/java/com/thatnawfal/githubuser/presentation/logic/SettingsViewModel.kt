@@ -15,9 +15,19 @@ class SettingsViewModel(
         return settingPreference.getTheme().asLiveData()
     }
 
+    fun getAlarm() : LiveData<String> {
+        return settingPreference.getAlarm().asLiveData()
+    }
+
     fun setThemes(theme: Boolean) {
         viewModelScope.launch {
             settingPreference.changeTheme(theme)
+        }
+    }
+
+    fun setAlarm(alarm : String) {
+        viewModelScope.launch {
+            settingPreference.changeAlarm(alarm)
         }
     }
 }

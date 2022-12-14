@@ -2,21 +2,28 @@ package com.thatnawfal.githubuser.presentation.ui.setting
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import com.thatnawfal.githubuser.R
 import com.thatnawfal.githubuser.databinding.ActivitySettingBinding
 import com.thatnawfal.githubuser.databinding.FragmentSettingBinding
 import com.thatnawfal.githubuser.di.ServiceLocator
 import com.thatnawfal.githubuser.presentation.logic.SettingsViewModel
+import com.thatnawfal.githubuser.utils.AlarmReceiver
+import com.thatnawfal.githubuser.utils.DatePickerFragment
 import com.thatnawfal.githubuser.utils.TimePickerFragment
 import com.thatnawfal.githubuser.utils.viewModelFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
-class SettingActivity : AppCompatActivity() {
+class SettingActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListener {
 
     companion object {
         private const val TIME_PICKER_REPEAT_TAG = "TimePickerRepeat"
     }
 
+    private lateinit var oldTimes: String
+    private lateinit var alarmReceiver: AlarmReceiver
     private lateinit var binding : ActivitySettingBinding
     private val settingViewModel by viewModelFactory {
         SettingsViewModel(ServiceLocator.provideSettingPreferences(this))
@@ -27,14 +34,34 @@ class SettingActivity : AppCompatActivity() {
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        oldTimes = binding.tvAlarm.text.toString()
+
         binding.btnEdit.setOnClickListener {
             val timePickerFragmentRepeat = TimePickerFragment()
-            timePickerFragmentRepeat.show(supportFragmentManager ,
-                TIME_PICKER_REPEAT_TAG
-            )
+            timePickerFragmentRepeat.show(supportFragmentManager, TIME_PICKER_REPEAT_TAG)
         }
 
+        settingViewModel.getAlarm().observe(this){
+            binding.tvAlarm.text = it
+        }
+
+        alarmReceiver = AlarmReceiver()
         themeChecker()
+    }
+
+    private fun alarmChecking() {
+        val times = binding.tvAlarm.text.toString()
+        if (oldTimes != times) {
+            binding.btnChange.visibility = View.VISIBLE
+            binding.btnChange.setOnClickListener {
+                alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_REPEATING,
+                    times, "Submission Reminder")
+
+                binding.btnChange.visibility = View.GONE
+                settingViewModel.setAlarm(times)
+            }
+        }
+
     }
 
     private fun themeChecker() {
@@ -50,6 +77,22 @@ class SettingActivity : AppCompatActivity() {
 
         binding.switchTheme.setOnCheckedChangeListener { _ , isChecked ->
             settingViewModel.setThemes(isChecked)
+        }
+    }
+
+    override fun onDialogTimeSet(tag: String?, hourOfDay: Int, minute: Int) {
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        calendar.set(Calendar.MINUTE, minute)
+
+        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+
+        when (tag) {
+            TIME_PICKER_REPEAT_TAG -> {
+                binding.tvAlarm.text = dateFormat.format(calendar.time)
+                alarmChecking()
+            }
+            else -> {}
         }
     }
 }
