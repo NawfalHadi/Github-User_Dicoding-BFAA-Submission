@@ -51,7 +51,6 @@ class AlarmReceiver : BroadcastReceiver() {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
         intent.putExtra(EXTRA_MESSAGE, message)
-        val putExtra = intent.putExtra(EXTRA_TYPE, type)
 
         val timeArray = time.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 

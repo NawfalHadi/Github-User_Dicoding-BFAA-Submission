@@ -1,5 +1,6 @@
 package com.thatnawfal.githubuser.presentation.ui.setting
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -29,6 +30,7 @@ class SettingActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListen
         SettingsViewModel(ServiceLocator.provideSettingPreferences(this))
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingBinding.inflate(layoutInflater)
@@ -41,11 +43,17 @@ class SettingActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListen
             timePickerFragmentRepeat.show(supportFragmentManager, TIME_PICKER_REPEAT_TAG)
         }
 
+        alarmReceiver = AlarmReceiver()
+
         settingViewModel.getAlarm().observe(this){
             binding.tvAlarm.text = it
+            if (it == "00"){
+                alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_REPEATING,
+                    "06:00", "Submission Reminder")
+                binding.tvAlarm.text = "06:00"
+                settingViewModel.setAlarm("06:00")
+            }
         }
-
-        alarmReceiver = AlarmReceiver()
         themeChecker()
     }
 
