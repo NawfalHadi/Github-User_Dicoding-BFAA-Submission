@@ -39,9 +39,9 @@ class UserViewModel : ViewModel() {
         loadUsers()
     }
 
-    fun loadUsers() {
+    fun loadUsers(per_page : Int = 10) {
         _isLoading.value = true
-        val client = ApiClient.instances().getUsers(10)
+        val client = ApiClient.instances().getUsers(per_page)
 
         client.enqueue(object : Callback<List<UsersModel>> {
             override fun onResponse(

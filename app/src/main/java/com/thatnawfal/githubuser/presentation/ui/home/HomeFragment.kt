@@ -18,11 +18,9 @@ import com.thatnawfal.githubuser.presentation.logic.FavoriteViewModel
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.FavoriteAdapter
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.UserAdapter
-import com.thatnawfal.githubuser.utils.TimePickerFragment
 import com.thatnawfal.githubuser.utils.viewModelFactory
-import java.util.*
 
-class HomeFragment : Fragment(), TimePickerFragment.DialogTimeListener {
+class HomeFragment : Fragment(){
 
     private val viewModel by viewModels<UserViewModel>()
     private val favoriteViewModel by viewModelFactory {
@@ -47,6 +45,12 @@ class HomeFragment : Fragment(), TimePickerFragment.DialogTimeListener {
 
         binding.btnSettings.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_settingActivity)
+        }
+
+        with(binding.layoutHomeContent){
+            btnShowsMoreusers.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_moreUsersFragment)
+            }
         }
 
         errorSnackbar()
@@ -177,18 +181,10 @@ class HomeFragment : Fragment(), TimePickerFragment.DialogTimeListener {
         }
     }
 
-
-
     private fun showSelectedItem(username: String) {
         val mBundle = Bundle()
         mBundle.putString(EXTRA_KEY, username)
         findNavController().navigate(R.id.action_homeFragment_to_detailUserFragment, mBundle)
-    }
-
-    override fun onDialogTimeSet(tag: String?, hourOfDay: Int, minute: Int) {
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-        calendar.set(Calendar.MINUTE, minute)
     }
 
     companion object {

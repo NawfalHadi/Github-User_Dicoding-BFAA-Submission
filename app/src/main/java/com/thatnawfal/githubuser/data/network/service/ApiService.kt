@@ -9,26 +9,22 @@ import retrofit2.http.*
 interface ApiService {
 
     @GET("/users?")
-    @Headers("Authorization: token $token")
     fun getUsers(
         @Query("per_page") per_page: Int,
     ): Call<List<UsersModel>>
 
     @GET("/search/users?")
-    @Headers("Authorization: token $token")
     fun searchUsers(
         @Query("q") q: String,
         @Query("per_page") per_page: Int,
     ): Call<SearchResponse>
 
     @GET("users/{username}")
-    @Headers("Authorization: token $token")
     fun getDetailUser(
         @Path("username") username: String,
     ): Call<DetailUsersModel>
 
     @GET("users/{username}/{follow}?")
-    @Headers("Authorization: token $token")
     fun getFollowsList(
         @Path("username") username: String,
         @Path("follow") follow: String,

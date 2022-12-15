@@ -6,14 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.thatnawfal.githubuser.R
+import com.thatnawfal.githubuser.databinding.FragmentFavoriteUsersBinding
+import com.thatnawfal.githubuser.di.ServiceLocator
+import com.thatnawfal.githubuser.presentation.logic.FavoriteViewModel
+import com.thatnawfal.githubuser.utils.viewModelFactory
+
 class FavoriteUsersFragment : Fragment() {
+
+    private lateinit var binding : FragmentFavoriteUsersBinding
+    private val viewModel by viewModelFactory {
+        FavoriteViewModel(ServiceLocator.provideFavoriteRepository(requireContext()))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite_users, container, false)
+        binding = FragmentFavoriteUsersBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -21,6 +31,5 @@ class FavoriteUsersFragment : Fragment() {
 
 
     }
-
 
 }

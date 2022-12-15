@@ -14,10 +14,4 @@ class UserViewModelTest {
         val instances: Retrofit = ApiClient.retrofit
         assertEquals(instances.baseUrl().toUrl().toString(), Helper.api_endpoint)
     }
-
-    // Api
-    @Test
-    fun `get api responsed`(){
-
-    }
 }

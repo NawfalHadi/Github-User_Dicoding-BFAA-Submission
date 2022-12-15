@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_homeFragment_to_settingActivity"
             app:destination="@id/settingActivity" />
+        <action
+            android:id="@+id/action_homeFragment_to_moreUsersFragment"
+            app:destination="@id/moreUsersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoriteUsersFragment"
+            app:destination="@id/favoriteUsersFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailUserFragment"
