@@ -142,7 +142,7 @@
             app:layout_constraintStart_toStartOf="@id/view_right_align"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/github_icon" />
+            android:contentDescription="@string/backdrop_github_logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

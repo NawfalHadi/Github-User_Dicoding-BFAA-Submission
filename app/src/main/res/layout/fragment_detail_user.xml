@@ -83,7 +83,7 @@
 
             app:tint="@color/white"
             android:visibility="visible"
-            tools:ignore="ContentDescription" />
+            android:contentDescription="@string/dc_addfavorite" />
 
     </LinearLayout>
 

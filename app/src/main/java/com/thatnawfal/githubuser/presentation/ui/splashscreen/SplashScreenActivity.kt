@@ -12,12 +12,15 @@ import com.thatnawfal.githubuser.di.ServiceLocator
 import com.thatnawfal.githubuser.presentation.logic.SettingsViewModel
 import com.thatnawfal.githubuser.presentation.ui.MainActivity
 import com.thatnawfal.githubuser.utils.viewModelFactory
+import kotlinx.coroutines.*
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
     private val settingViewModel by viewModelFactory {
         SettingsViewModel(ServiceLocator.provideSettingPreferences(this))
     }
+
+    private val activityScope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +34,17 @@ class SplashScreenActivity : AppCompatActivity() {
             }
         }
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+        activityScope.launch {
+            delay(LOADING_TIME)
+
+            startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
             finish()
-        }, LOADING_TIME)
+        }
+    }
+
+    override fun onPause() {
+        activityScope.cancel()
+        super.onPause()
     }
 
     companion object {

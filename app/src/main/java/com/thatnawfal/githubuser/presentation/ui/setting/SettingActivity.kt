@@ -42,9 +42,9 @@ class SettingActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListen
             binding.tvAlarm.text = it
             if (it == "00"){
                 alarmReceiver.setRepeatingAlarm(this,
-                    "06:00", "Submission Reminder")
-                binding.tvAlarm.text = "06:00"
-                settingViewModel.setAlarm("06:00")
+                    DEFAULT_TIME_9AM, "Submission Reminder")
+                binding.tvAlarm.text = DEFAULT_TIME_9AM
+                settingViewModel.setAlarm(DEFAULT_TIME_9AM)
             }
         }
         themeChecker()
@@ -99,5 +99,6 @@ class SettingActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListen
 
     companion object {
         private const val TIME_PICKER_REPEAT_TAG = "TimePickerRepeat"
+        private const val DEFAULT_TIME_9AM = "09:00"
     }
 }

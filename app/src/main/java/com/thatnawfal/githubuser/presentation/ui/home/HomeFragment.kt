@@ -109,23 +109,6 @@ class HomeFragment : Fragment(), TimePickerFragment.DialogTimeListener {
             override fun itemClicked(username: String) {
                 showSelectedItem(username)
             }
-
-            override fun itemFavorited(entity: FavoriteEntity) {
-                favoriteViewModel.addFavorite(entity)
-            }
-
-            override fun itemUnfavorited(entity: FavoriteEntity) {
-                favoriteViewModel.removeFavorite(entity)
-            }
-
-            override fun checkFavorited(id: Int?): Boolean {
-                favoriteViewModel.checkFavorite(id!!)
-                var bool = false
-                favoriteViewModel.isFavorited.observe(viewLifecycleOwner){
-                   bool = it
-                }
-                return bool
-            }
         })
     }
 

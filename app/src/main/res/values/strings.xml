@@ -41,4 +41,9 @@
     <string name="text_alarm">Alarm</string>
     <string name="text_dummy_times">18:00</string>
     <string name="backdrop_github_logo">backdrop github logo</string>
+    <string name="cd_set_alarm">Open Set Alarm</string>
+    <string name="dc_save_alarm_setting">Set new alarm times</string>
+    <string name="dc_addfavorite">add user to favorite</string>
+    <string name="cd_backdrop_avatar">backdrop avatar</string>
+    <string name="cd_remove_from_favorite">remove from favorite</string>
 </resources>

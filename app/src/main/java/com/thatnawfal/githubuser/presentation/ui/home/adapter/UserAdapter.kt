@@ -53,35 +53,11 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                 itemViewgroupVertical.setOnClickListener {
                     onItemClickedCallback.itemClicked(item.login!!)
                 }
-
-//                if (onItemClickedCallback.checkFavorited(item.id)){
-//                    itemBtnFavoriteVertical.setImageResource(R.drawable.ic_unfavorited)
-//                } else {
-//                    itemBtnFavoriteVertical.setImageResource(R.drawable.ic_favorited)
-//                }
-
-                itemBtnFavoriteVertical.setOnClickListener {
-                    val entity = FavoriteEntity(
-                        item.id!!, item.login!!, item.avatarUrl!!, true
-                    )
-
-                    if (onItemClickedCallback.checkFavorited(item.id)){
-                        itemBtnFavoriteVertical.setImageResource(R.drawable.ic_unfavorited)
-                        onItemClickedCallback.itemFavorited(entity)
-                    } else {
-                        itemBtnFavoriteVertical.setImageResource(R.drawable.ic_favorited)
-                        onItemClickedCallback.itemUnfavorited(entity)
-                    }
-
-                }
             }
         }
     }
 
     interface OnItemClickedCallback {
         fun itemClicked(username: String)
-        fun itemFavorited(entity: FavoriteEntity)
-        fun itemUnfavorited(entity: FavoriteEntity)
-        fun checkFavorited(id: Int?): Boolean
     }
 }

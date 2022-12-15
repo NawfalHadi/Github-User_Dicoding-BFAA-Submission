@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="ContentDescription"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.ui.home.users.FavoriteUsersFragment">
 
@@ -17,7 +16,8 @@
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/text_favoriteusers"
-        app:layout_constraintBottom_toBottomOf="@id/text_favoriteusers"/>
+        app:layout_constraintBottom_toBottomOf="@id/text_favoriteusers"
+        android:contentDescription="@string/back_button"/>
 
     <TextView
         android:id="@+id/text_favoriteusers"
