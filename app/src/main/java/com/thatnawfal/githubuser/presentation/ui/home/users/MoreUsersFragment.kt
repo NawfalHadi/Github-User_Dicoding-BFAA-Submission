@@ -17,4 +17,7 @@ class MoreUsersFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_more_users, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
 }

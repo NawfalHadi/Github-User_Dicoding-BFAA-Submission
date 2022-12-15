@@ -11,6 +11,7 @@
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
         <item name="android:editTextColor">@color/white</item>
+        <item name="tint">@color/gray_80</item>
     </style>
 
     <style name="boldText">

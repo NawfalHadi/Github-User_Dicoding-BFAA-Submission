@@ -8,6 +8,7 @@ import com.thatnawfal.githubuser.data.local.database.entity.FavoriteEntity
 import com.thatnawfal.githubuser.data.repository.FavoriteRepository
 import com.thatnawfal.githubuser.wrapper.Event
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class FavoriteViewModel(private val mFavRepository: FavoriteRepository ): ViewModel() {
@@ -32,6 +33,7 @@ class FavoriteViewModel(private val mFavRepository: FavoriteRepository ): ViewMo
         viewModelScope.launch(Dispatchers.IO) {
             val responsed = mFavRepository.checkFavorite(id)
             viewModelScope.launch(Dispatchers.Main) {
+                delay(300)
                 _isFavorited.postValue(responsed)
             }
         }

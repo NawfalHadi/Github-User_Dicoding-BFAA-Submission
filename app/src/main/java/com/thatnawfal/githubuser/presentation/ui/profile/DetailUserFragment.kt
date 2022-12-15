@@ -128,25 +128,23 @@ class DetailUserFragment : Fragment() {
                 favoriteViewModel.isFavorited.observe(viewLifecycleOwner){
                     detailFbToFavorite.isClickable = true
                     if (it){
-                        detailFbToFavorite.apply {
-                            setOnClickListener {
-                                favoriteViewModel.apply {
-                                    removeFavorite(entity)
-                                    checkFavorite(dataUser.id)
-                                }
+                        detailFbToFavorite.setImageResource(R.drawable.ic_favorited)
+                        setOnClickListener {
+                            detailFbToFavorite.setImageResource(R.drawable.ic_unfavorited)
+                            favoriteViewModel.apply {
+                                removeFavorite(entity)
+                                checkFavorite(dataUser.id)
                             }
-                            setImageResource(R.drawable.ic_favorited)
                             detailFbToFavorite.isClickable = false
                         }
                     } else {
-                        detailFbToFavorite.apply {
-                            setOnClickListener {
-                                favoriteViewModel.apply {
-                                    addFavorite(entity)
-                                    checkFavorite(dataUser.id)
-                                }
+                        detailFbToFavorite.setImageResource(R.drawable.ic_unfavorited)
+                        setOnClickListener {
+                            detailFbToFavorite.setImageResource(R.drawable.ic_favorited)
+                            favoriteViewModel.apply {
+                                addFavorite(entity)
+                                checkFavorite(dataUser.id)
                             }
-                            setImageResource(R.drawable.ic_unfavorited)
                             detailFbToFavorite.isClickable = false
                         }
                     }

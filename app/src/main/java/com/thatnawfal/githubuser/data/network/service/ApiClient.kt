@@ -9,23 +9,23 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiClient {
     companion object {
+        private val loggingInterceptor = if(BuildConfig.DEBUG) {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
+
+        private val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(Helper.api_endpoint)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
         fun instances(): ApiService {
-            val loggingInterceptor = if(BuildConfig.DEBUG) {
-                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            } else {
-                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
-            }
-
-            val client = OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build()
-
-            val retrofit = Retrofit.Builder()
-                .baseUrl(Helper.api_endpoint)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build()
-
             return retrofit.create(ApiService::class.java)
         }
     }

@@ -21,6 +21,6 @@
     </style>
 
     <style name="tintColor">
-        <item name="tint">?attr/colorPrimary</item>
+        <item name="tint">@color/black_50</item>
     </style>
 </resources>

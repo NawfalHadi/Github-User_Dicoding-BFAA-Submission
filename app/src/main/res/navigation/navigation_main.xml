@@ -27,4 +27,13 @@
         android:name="com.thatnawfal.githubuser.presentation.ui.setting.SettingActivity"
         android:label="activity_setting"
         tools:layout="@layout/activity_setting" />
+    <fragment
+        android:id="@+id/favoriteUsersFragment"
+        android:name="com.thatnawfal.githubuser.presentation.ui.home.users.FavoriteUsersFragment"
+        android:label="fragment_more_users"
+        tools:layout="@layout/fragment_more_users" />
+    <fragment
+        android:id="@+id/moreUsersFragment"
+        android:name="com.thatnawfal.githubuser.presentation.ui.home.users.MoreUsersFragment"
+        android:label="MoreUsersFragment" />
 </navigation>

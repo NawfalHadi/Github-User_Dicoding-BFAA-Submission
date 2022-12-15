@@ -8,26 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.thatnawfal.githubuser.R
-import com.thatnawfal.githubuser.data.local.database.entity.FavoriteEntity
-import com.thatnawfal.githubuser.data.model.response.UsersModel
 import com.thatnawfal.githubuser.databinding.FragmentFollowsBinding
-import com.thatnawfal.githubuser.di.ServiceLocator
-import com.thatnawfal.githubuser.presentation.logic.FavoriteViewModel
 import com.thatnawfal.githubuser.presentation.logic.UserViewModel
 import com.thatnawfal.githubuser.presentation.ui.home.HomeFragment
 import com.thatnawfal.githubuser.presentation.ui.home.adapter.UserAdapter
-import com.thatnawfal.githubuser.utils.viewModelFactory
 
 class FollowsFragment : Fragment() {
 
     private lateinit var binding: FragmentFollowsBinding
 
     private val viewModel by viewModels<UserViewModel>()
-    private val favoriteViewModel by viewModelFactory {
-        FavoriteViewModel(ServiceLocator.provideFavoriteRepository(requireContext()))
-    }
 
     private val adapter: UserAdapter by lazy { UserAdapter() }
 
