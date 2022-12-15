@@ -51,6 +51,10 @@ class HomeFragment : Fragment(){
             btnShowsMoreusers.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_moreUsersFragment)
             }
+
+            btnShowsFavoriteusers.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_favoriteUsersFragment)
+            }
         }
 
         errorSnackbar()
